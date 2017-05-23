@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <cn.lankton.flowlayout.FlowLayout
+        android:id="@+id/flowlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:lineSpacing="10dp"
+        android:background="#F0F0F0">
+
+    </cn.lankton.flowlayout.FlowLayout>
+
+    <com.example.xiao.myappshuihu.view.ListViewCompat
+        android:id="@+id/girdview_id"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none">
+
+    </com.example.xiao.myappshuihu.view.ListViewCompat>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+</LinearLayout>

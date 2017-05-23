@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mcxtzhang.swipemenulib.SwipeMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingLeft="15dp"
+    app:ios="false"
+
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent">
+            <TextView
+                android:id="@+id/tv_names"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="@string/yangshenghu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/wenduji"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:id="@+id/tv_wenduji"
+                    android:text="@string/wendu"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <Switch
+            android:layout_marginRight="20dp"
+            android:id="@+id/mSwitch"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/huise"
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDel"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:background="@color/top_red"
+        android:clickable="true"
+        android:text="删除"
+        android:textColor="@android:color/white"/>
+</com.mcxtzhang.swipemenulib.SwipeMenuLayout>

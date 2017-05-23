@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <ImageView
+            android:id="@+id/image_backs"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back"
+            android:layout_width="45dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:textColor="@color/txt_balck"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/lishijilu"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" />
+        <Button
+            android:background="@null"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:layout_alignParentRight="true"
+            android:text="@string/add"
+            android:layout_width="45dp"
+            android:layout_height="fill_parent" />
+    </RelativeLayout>
+    <!--上月使用情况-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:textSize="19dp"
+            android:gravity="center"
+            android:text="@string/shangyueshiyongjilu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View
+        android:layout_marginTop="3dp"
+        android:background="@color/top_red"
+        android:layout_width="match_parent"
+        android:layout_height="0.4dp"/>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/pingjunmeitianshiyongcishu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/darkorange"
+            android:text="@string/cishu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/shaoshuirongliang"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/darkorange"
+            android:text="@string/shengshu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/zuiduoshiyongwendu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/darkorange"
+            android:text="@string/wendu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/zongyongdianliang"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/darkorange"
+            android:text="@string/dianliang"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/huise"
+        android:layout_width="match_parent"
+        android:layout_height="0.4dp"/>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/diyicishiyong"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/darkorange"
+            android:text="@string/shijian"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/zongtianshu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/darkorange"
+            android:text="@string/tianshu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/zonggongzuoshijian"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/darkorange"
+            android:text="@string/xiaoshi"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/txt_balck"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/orangered"
+            android:gravity="center"
+            android:text="@string/kaishishijian"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent" />
+        <TextView
+            android:textColor="@color/orangered"
+            android:gravity="center"
+            android:text="@string/shuiliang"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent" />
+        <TextView
+            android:textColor="@color/orangered"
+            android:gravity="center"
+            android:text="@string/wendus"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent" />
+        <TextView
+            android:textColor="@color/orangered"
+            android:gravity="center"
+            android:text="@string/haodian"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent" />
+        <TextView
+            android:layout_marginRight="10dp"
+            android:textColor="@color/orangered"
+            android:gravity="center"
+            android:text="@string/caozuofangshi"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+    <View
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/txt_balck"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/mRecyclerView"
+    android:layout_width="match_parent"
+    android:layout_weight="1"
+    android:layout_height="0dp">
+
+</android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

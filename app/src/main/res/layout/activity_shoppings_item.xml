@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Android="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="130dp">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="120dp">
+            <ImageView
+                android:id="@+id/ivCheckGood"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_uncheck"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="120dp">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/huacha"
+                android:layout_width="60dp"
+                android:layout_height="fill_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/txt_balck"
+                android:textSize="16sp"
+                android:text="1.8L智能养生壶，16大功能香槟金"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView" />
+
+            <!--       <TextView
+                       android:layout_marginTop="10dp"
+                       android:text="小熊电器厨电专场(旗舰店)"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content" />-->
+
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <ImageView
+                    android:src="@drawable/buliang_jianhao"
+                    android:id="@+id/tv_jian"
+                    android:textSize="30sp"
+                    android:text="--"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    />
+                <ImageView
+
+                    android:src="@drawable/liangse_jianhao"
+                    android:id="@+id/tv_jian_liang"
+                    android:textSize="30sp"
+                    android:text="--"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@drawable/shurukuang_one"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/et_shru"
+                        Android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center_horizontal"
+                        android:hint="1"
+                        android:background="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <ImageView
+                    android:src="@drawable/liangse_jiahao"
+                    android:id="@+id/tv_add"
+                    android:textSize="30sp"
+                    android:text="+"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.35"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:text="¥"
+                    android:layout_marginRight="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/tv_money"
+                    android:layout_alignParentRight="true"
+                    android:textSize="18sp"
+                    android:text="178"
+                    android:layout_marginRight="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent" />
+                <ImageView
+                    android:id="@+id/image_colses"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/close_red_packet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.example.xiao.myappshuihu.MainActivity">
+
+    <FrameLayout
+        android:layout_above="@+id/ll_llayout2"
+        android:id="@+id/id_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll_llayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/huise"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp" />
+    <LinearLayout
+        android:background="@color/txt_while"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <!--第1个tab-->
+        <LinearLayout
+            android:id="@+id/llay_00"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent">
+            <ImageView
+                android:src="@drawable/shouye_xuanzhong"
+                android:id="@+id/id_img00"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:textColor="@color/txt_balck"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="@string/shouye"
+                android:id="@+id/tv_00"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        <!--第2个tab-->
+        <LinearLayout
+            android:id="@+id/llay_01"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent">
+            <ImageView
+                android:src="@drawable/shangcheng_weixuanzhong"
+                android:id="@+id/id_img01"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:textColor="@color/but_color1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="@string/shangcheng"
+                android:id="@+id/tv_01"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        <!--第3个tab-->
+        <LinearLayout
+            android:id="@+id/llay_02"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent">
+            <ImageView
+                android:src="@drawable/wode_weixuanzhong"
+                android:id="@+id/id_img02"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:textColor="@color/but_color1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="@string/wode"
+                android:id="@+id/tv_02"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

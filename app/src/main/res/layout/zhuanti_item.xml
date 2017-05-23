@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/ll_layout_item"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imge_liebiao"
+                android:layout_marginLeft="15sp"
+                android:src="@drawable/huacha"
+                android:layout_width="70dp"
+                android:layout_height="100dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_titales"
+                android:textColor="@color/txt_balck"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="@string/yangshenghulieb"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_addreagss"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:text="@string/addresg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <Button
+                    android:background="@drawable/yuanjiao_wubeijing"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/top_red"
+                    android:textSize="6sp"
+                    android:gravity="center"
+                    android:text="包邮"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="$"
+                    android:textColor="@color/top_red"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_moneyss"
+                    android:layout_marginLeft="3dp"
+                    android:textColor="@color/top_red"
+                    android:textSize="20sp"
+                    android:text="@string/jiner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_shiyongrenshu"
+                    android:layout_marginLeft="18dp"
+                    android:textColor="@color/line3"
+                    android:textSize="16sp"
+                    android:text="@string/shiyongrenshu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="90dp">
+            <ImageView
+                android:id="@+id/imge_gouwuche"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/gouwuche"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:background="@color/huise"
+            android:layout_width="300dp"
+            android:layout_height="0.4dp"/>
+
+
+    </LinearLayout>
+</LinearLayout>

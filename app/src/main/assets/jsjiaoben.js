@@ -1,0 +1,14 @@
+document.documentElement.getElementsByClassName('_3HtOnURvSgW7cBAWmbmyMb _13RGBxKBfX2TEKXjP3I0Uf')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('sys_button cart')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('bottom_bar_fav')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('bottom_bar_icon')[1].style.display = 'none';
+document.documentElement.getElementsByClassName('bottom_bar_icon')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('navi_bar homePage')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('rate_header')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('shop_header')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('shop_info')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('button_container')[1].style.display = 'none';
+document.documentElement.getElementsByClassName('ctrl-ui-labelExtra')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('footer')[0].style.display = 'none';
+document.documentElement.getElementsByClassName('body')[6].style.display = 'none';
+document.getElementById('e42964a')[0].style.display = 'none';

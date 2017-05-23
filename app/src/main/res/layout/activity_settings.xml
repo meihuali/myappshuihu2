@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <ImageView
+            android:id="@+id/imgsss_back"
+            android:layout_width="45dp"
+            android:layout_height="fill_parent"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/settings"
+            android:textColor="@color/txt_balck"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_addconmit"
+            android:textSize="30dp"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:text="@string/add" />
+    </RelativeLayout>
+
+    <cn.lankton.flowlayout.FlowLayout
+        android:id="@+id/flowlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:lineSpacing="10dp"
+        android:background="#F0F0F0">
+
+    </cn.lankton.flowlayout.FlowLayout>
+
+    <com.example.xiao.myappshuihu.view.ListViewCompat
+        android:id="@+id/girdview_id"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none">
+
+    </com.example.xiao.myappshuihu.view.ListViewCompat>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+</LinearLayout>
