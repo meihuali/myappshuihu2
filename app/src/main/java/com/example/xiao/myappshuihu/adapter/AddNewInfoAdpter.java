@@ -25,11 +25,9 @@ import com.example.xiao.myappshuihu.utils.Toasts;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-
 import java.util.HashMap;
 import java.util.List;
-	//123123151
-//14153
+
 public class AddNewInfoAdpter extends BaseAdapter implements
 		OnItemClickListener {
 
