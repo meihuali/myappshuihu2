@@ -28,7 +28,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.HashMap;
 import java.util.List;
-
+	//随便 写点 提交到码云 为了测试 下这个注释
 public class AddNewInfoAdpter extends BaseAdapter implements
 		OnItemClickListener {
 
