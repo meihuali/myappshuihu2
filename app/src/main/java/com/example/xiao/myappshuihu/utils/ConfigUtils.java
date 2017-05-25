@@ -26,5 +26,9 @@ public class ConfigUtils {
    // http://api.sunyie.com:8081/app/getnearmachine/appid/8610690389464250/onlineflag/all/bindflag/unbind
     public static final String SHUIHUSHOU = "http://api.sunyie.com:8081/app/getnearmachine/appid/";
     public static final String SHUIHUHOUZHUI = "/onlineflag/all/bindflag/unbind";
+    /*========================登录接口======================================*/
+    public static final String ZhuYuMing = "http://store.sunyie.com/";
+    public static final String LOGIN_SONCESS = "Healthkettle/login.php";
+    /*============================================================================*/
 
 }

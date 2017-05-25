@@ -65,9 +65,7 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
     /*这个方法是 popupwindow 显示在具体 什么位子 ·这里是显示右上角*/
     @Override
     public void showPopupWindow(View v) {
-        setOffsetX(-(getPopupViewWidth() - v.getWidth() / 2));
-       int h = v.getHeight();
-        setOffsetY(v.getHeight()+18);
+
         super.showPopupWindow(v);
 
     }

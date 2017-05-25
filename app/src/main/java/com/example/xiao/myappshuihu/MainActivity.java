@@ -13,6 +13,12 @@ import android.widget.TextView;
 import com.example.xiao.myappshuihu.fragmengt.ShangCheng;
 import com.example.xiao.myappshuihu.fragmengt.ShouYe;
 import com.example.xiao.myappshuihu.fragmengt.WoDe;
+import com.example.xiao.myappshuihu.utils.ConfigUtils;
+import com.example.xiao.myappshuihu.utils.Toasts;
+import com.kymjs.rxvolley.RxVolley;
+import com.kymjs.rxvolley.client.HttpCallback;
+import com.kymjs.rxvolley.client.HttpParams;
+import com.kymjs.rxvolley.http.VolleyError;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     /*声明三个tab栏的 linelayout*/
@@ -30,8 +36,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView(); //初始化
         setSelect(0); //默认选择第几个开场的tab栏 显示
-
+        initRequest();
     }
+        /*模仿登录接口*/
+    private void initRequest() {
+        String url = ConfigUtils.ZhuYuMing+ConfigUtils.LOGIN_SONCESS;
+        HttpParams paresm = new HttpParams();
+        paresm.put("name","13144743445");
+        paresm.put("password","");
+        RxVolley.post(url, paresm, new HttpCallback() {
+            @Override
+            public void onSuccess(String t) {
+                super.onSuccess(t);
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+                super.onFailure(error);
+                Toasts.makeTexts(getApplicationContext(),"登录请求失败");
+            }
+        });
+    }
+
     /*默认显示 第几个tab 显示*/
     private void setSelect(int i) {
         //获取fragment 的实例
