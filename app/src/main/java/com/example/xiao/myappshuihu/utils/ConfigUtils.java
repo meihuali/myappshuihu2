@@ -24,11 +24,29 @@ public class ConfigUtils {
 
     //==========水壶显示界面==========
    // http://api.sunyie.com:8081/app/getnearmachine/appid/8610690389464250/onlineflag/all/bindflag/unbind
-    public static final String SHUIHUSHOU = "http://api.sunyie.com:8081/app/getnearmachine/appid/";
+    public static final String SHUIHUSHOU = "http://gkettle.sunyie.com/app/getnearmachine/appid/";
     public static final String SHUIHUHOUZHUI = "/onlineflag/all/bindflag/unbind";
+
+
     /*========================登录接口======================================*/
     public static final String ZhuYuMing = "http://store.sunyie.com/";
     public static final String LOGIN_SONCESS = "Healthkettle/login.php";
     /*============================================================================*/
+
+    /*=================================加入购物车的接口==================================================*/
+    public static final String ADD_SHPOPPINGS = "Afterlogin/addshoppingcart.php";
+
+    /*================================App注册接口（公用）.（ok）====================================================*/
+
+    public static final String REGSET_INTIFCES = "http://gkettle.sunyie.com";
+    public static final String SHUIHU_ZONG_JIEKOU = "http://gkettle.sunyie.com";
+    public static final String REGSET_HOUZHUI = "/app/reg/appid/";
+    /*===============================================================================*/
+    /*===============================水壶开启预约 跟 闭关预约 开关 接口===========================================*/
+        public static final String OPEN_YUYUE = "/teapot/mswitch/machineid/";
+    public static final String TYPES = "type";
+
+    /*===============================修改水壶 预约的 ===================================================*/
+    public static final String DETATE_YUYUE = "/teapot/deleteAppointment/";
 
 }

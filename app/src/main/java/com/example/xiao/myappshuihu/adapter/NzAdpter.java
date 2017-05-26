@@ -23,8 +23,14 @@ import com.example.xiao.myappshuihu.httpsocket.HttpHandler;
 import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
 import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
 import com.example.xiao.myappshuihu.ui.NZEditActivity;
+import com.example.xiao.myappshuihu.utils.ConfigUtils;
+import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.Toasts;
+import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
 import com.example.xiao.myappshuihu.view.MessageItem;
 import com.example.xiao.myappshuihu.view.SlideView;
+import com.kymjs.rxvolley.RxVolley;
+import com.kymjs.rxvolley.client.HttpCallback;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -33,6 +39,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideView.OnSlideListener {
+
+	private NZ_DBhelperManager.NZYData bean;
+	private String order_id;
 
 	public class Items extends MessageItem {
 		NZ_DBhelperManager.NZYData item;
@@ -44,18 +53,18 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 
 	private List<NZ_DBhelperManager.NZYData> mDataList;
 
-	private Context context;
+	private Activity context;
 
 	private LayoutInflater inf;
 	public int onClickIte=0;//记录最后被点击的是那个item，到时候需要关闭该item
 	private String[] numberStrings;
 	private Handler handler;
-
+	private boolean isFrest;
 	public void setHandler(Handler handler) {
 		this.handler = handler;
 	}
 
-	public NzAdpter(Context context, List<NZ_DBhelperManager.NZYData> dataList, HttpHandler jrhandler, String machineid) {
+	public NzAdpter(Activity context, List<NZ_DBhelperManager.NZYData> dataList, HttpHandler jrhandler, String machineid) {
 		mDataList = dataList;
 		this.jrhandler=jrhandler;
 		this.MACHINEID=machineid;
@@ -65,6 +74,7 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 			Items itemts = new Items();
 			itemts.item = dataList.get(i);
 			listData.add(itemts);
+
 		}
 		numberStrings=new String[]{ context.getString(R.string.monday),context.getString(R.string.tuesday),context.getString(R.string.wednesday),
 				context.getString(R.string.thursday),context.getString(R.string.friday),context.getString(R.string.saturday),context.getString(R.string.sunday)};
@@ -133,16 +143,18 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 		final Items item = listData.get(index);
 		item.slideView = sview;
 		item.slideView.reset();
-		final NZ_DBhelperManager.NZYData bean = listData.get(index).item;
+		 bean = listData.get(index).item;
 		try {
 			sview.setButtonOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					// TODO 自动生成的方法存根
+					// 这里就是删除的点击事件回调啊！ 恩·
 					NZ_DBhelperManager.getInstance(context).delete(bean.NZ_ID);
 					listData.remove(item);
 					notifyDataSetInvalidated();
+					//侧滑删除预约 条目
+					deleteYuYueTiaoMu();
 					if(item.item.NZ_ISOPEN==0){//直接删除
 
 					}else{
@@ -183,9 +195,7 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 				}
 			}
 			
-			
-			
-			
+
 			holder.tx01.setText(time);
 			holder.tx02.setText(bean.NZ_MS);
 			holder.tx03.setText(getWeekly(bean.NZ_SW));
@@ -200,6 +210,17 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 				
 				@Override
 				public void onClick(View v) {
+		/*			Toasts.makeTexts(context,"开关测试");
+					if (isFrest) {
+						v.setBackgroundResource(R.drawable.r2);
+						isFrest = false;
+						OpenanappointmentRuest("2");
+					} else {
+						v.setBackgroundResource(R.drawable.r1);
+						isFrest = true;
+						*//*开启预约*//*
+						OpenanappointmentRuest("1");
+					}*/
 					if(bean.NZ_ISOPEN == 1){
 						v.setBackgroundResource(R.drawable.r1);
 						if(handler != null){
@@ -226,7 +247,6 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 		}
 		return sview;
 	}
-
 
 
 
@@ -300,6 +320,56 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 			((Activity)context).startActivityForResult(intent,1);//1stand for update
 
 		}
+	}
+		/*打开关闭预约*/
+	private void OpenanappointmentRuest(String types) {
+	String appid = ToolsGetAppId.getinitAppId(context);
+		String order_id = bean.ORDER_ID;
+		String urldd = ConfigUtils.SHUIHU_ZONG_JIEKOU+ConfigUtils.OPEN_YUYUE	+MACHINEID+"/appid/"+appid+"/orderid/"+order_id+"/type/"+types;
+//		String urles= "";
+		new RxVolley.Builder().callback(new HttpCallback() {
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+				L.e("open 开启预约 "+t);
+			}
+		})
+				.url(urldd) //接口地址
+				//设置缓存时间: 默认是 get 请求 5 分钟, post 请求不缓存
+				.cacheTime(0)
+				//内容参数传递形式，如果不加，默认为 FORM 表单提交，可选项 JSON 内容
+				.contentType(RxVolley.ContentType.FORM)
+				//是否缓存，默认是 get 请求 5 缓存分钟, post 请求不缓存
+				.shouldCache(false)
+				.encoding("UTF-8") //编码格式，默认为utf-8
+				.doTask();  //执行请求操作
+	}
+
+	/*删除整个条目的预约 */
+	private void deleteYuYueTiaoMu() {
+		String APPid = ToolsGetAppId.getinitAppId(context);
+
+		for (int i = 0; i < mDataList.size(); i++) {
+			 order_id = mDataList.get(i).ORDER_ID;
+		}
+		String urlssses = ConfigUtils.SHUIHU_ZONG_JIEKOU+ConfigUtils.DETATE_YUYUE+"appid/"+APPid+"/machineid/"+MACHINEID+"/orderid/"+order_id;
+		new RxVolley.Builder().callback(new HttpCallback() {
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+				L.e("delte  删除 "+t);
+			}
+		})
+				.url(urlssses) //接口地址
+				//设置缓存时间: 默认是 get 请求 5 分钟, post 请求不缓存
+				.cacheTime(0)
+				//内容参数传递形式，如果不加，默认为 FORM 表单提交，可选项 JSON 内容
+				.contentType(RxVolley.ContentType.FORM)
+				//是否缓存，默认是 get 请求 5 缓存分钟, post 请求不缓存
+				.shouldCache(false)
+				.encoding("UTF-8") //编码格式，默认为utf-8
+				.doTask();  //执行请求操作
+
 	}
 
 }

@@ -72,11 +72,15 @@ public class AddOldInfoActivity extends AppCompatActivity implements OnClickList
 		gridView.setAdapter(adpter);
 		//获取PAAID
 		String appId = ToolsGetAppId.getinitAppId(this);
+
+		String  urlsss = ConfigUtils.SHUIHUSHOU+appId+ConfigUtils.SHUIHUHOUZHUI;
+
 		// 网络 请求
 		new RxVolley.Builder().callback(new HttpCallback() {
 			@Override
 			public void onSuccess(String t) {
 				parsers(t);
+
 				L.e("ttttttt "+t);
 			}
 		})

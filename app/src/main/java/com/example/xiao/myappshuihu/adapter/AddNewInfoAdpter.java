@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
 import com.example.xiao.myappshuihu.ui.AddNewInfoActivity;
+import com.example.xiao.myappshuihu.ui.MachineActivity;
 import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.PicassoUtils;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
@@ -33,7 +34,7 @@ public class AddNewInfoAdpter extends BaseAdapter implements
 
 	private List<HashMap<String, Object>> mDataList;
 
-	private Context context;
+	private Activity context;
 
 	private LayoutInflater inf;
 
@@ -51,10 +52,10 @@ public class AddNewInfoAdpter extends BaseAdapter implements
 		this.state = state;
 	}
 
-	public AddNewInfoAdpter(Context context,
-                            List<HashMap<String, Object>> dataList) {
+	public AddNewInfoAdpter(Activity context,
+							List<HashMap<String, Object>> dataList) {
 		options = new DisplayImageOptions.Builder()
-		.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
+				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
 				.displayer(new RoundedBitmapDisplayer(20)).build();
 
 		mDataList = dataList;
@@ -114,14 +115,14 @@ public class AddNewInfoAdpter extends BaseAdapter implements
 		// StateViewHolder holder = (StateViewHolder) view.getTag();
 		HashMap<String, Object> bean = mDataList.get(index);
 
-		 machineid = null;
+		machineid = null;
 		if (bean.get("machineid") != null) {
 			machineid = bean.get("machineid").toString();
 		} else {
 			machineid = bean.get("MACHINEID").toString();
 		}
 
-		 imageframe = machineid.substring(0, 6);
+		imageframe = machineid.substring(0, 6);
 		L.e("imageframe  "+imageframe);
 		String url = "HttpUrl.IMGURL + imageframe + \".png\"";
 		if (!TextUtils.isEmpty(url)) {
@@ -153,31 +154,19 @@ public class AddNewInfoAdpter extends BaseAdapter implements
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		HashMap<String, Object> bean = mDataList.get(position);
-        //保存下 mic 设备号的 ID
+							long id) {
+		Toasts.makeTexts(context,"跳转界面");
+//		HashMap<String, Object> bean = mDataList.get(position);
+		//保存下 mic 设备号的 ID
 		ShareUtils.putString(context,"micID",machineid);
-
-
-/*		if (state == 1 || state == 0) {
-//			Intent intent = new Intent(context, CopyOfMachineActivity.class);
-//			intent.putExtra("IP", bean.get("IP").toString());
-//
-//			intent.putExtra("state", state);
-//			context.startActivity(intent);
-//			((Activity) context).finish();
-		} else if (state == 2) {
-//			Intent intent = new Intent(context, MachineActivity.class);
-//			String machineid = null;
-//			if (bean.get("machineid") != null) {
-//				machineid = bean.get("machineid").toString();
-//			} else {
-//				machineid = bean.get("MACHINEID").toString();
-//			}
-//			intent.putExtra("MACHINEID", machineid);
-//			context.startActivity(intent);
-//			((Activity) context).finish();
-		}*/
+//		Activity activity = ((Activity) context); //强转
+		Intent intent = new Intent(context, MachineActivity.class);//运行看看
+		intent.putExtra("MACHINEID", machineid); //  用Intent 传值 必须在 另外一Activity 接受这个值才可以跳
+//		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(intent);
+		context.finish();
 	}
 
+
 }
+

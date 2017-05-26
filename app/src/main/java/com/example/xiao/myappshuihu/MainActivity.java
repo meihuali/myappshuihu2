@@ -19,6 +19,7 @@ import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.MD5Util;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.Toasts;
+import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
 import com.google.gson.Gson;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
@@ -47,8 +48,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView(); //初始化
         setSelect(0); //默认选择第几个开场的tab栏 显示
         initRequest(); //模拟登录
+        /*这里是获取本机的 APPID */
+        initGetAPPid();
     }
-        /*模仿登录接口*/
+
+
+
+    /*模仿登录接口*/
     private void initRequest() {
         //传参密码 要加密成 MD5
        String md5PassWord =  MD5Util.getStringMD5("123456");
@@ -188,4 +194,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         image_01.setImageResource(R.drawable.shangcheng_weixuanzhong);
         image_02.setImageResource(R.drawable.wode_weixuanzhong);
     }
+
+    /*====================这里是那个养生壶硬件那块需要接受 一个什么几把 APPid 才可以===============================================*/
+    private void initGetAPPid() {
+        String appid = ToolsGetAppId.getinitAppId(this);
+        String urlsss = ConfigUtils.REGSET_INTIFCES+ConfigUtils.REGSET_HOUZHUI+appid;
+        new RxVolley.Builder().callback(new HttpCallback() {
+            @Override
+            public void onSuccess(String t) {
+                super.onSuccess(t);
+            }
+        })			.url(urlsss) //接口地址
+                //设置缓存时间: 默认是 get 请求 5 分钟, post 请求不缓存
+                .cacheTime(0)
+                //内容参数传递形式，如果不加，默认为 FORM 表单提交，可选项 JSON 内容
+                .contentType(RxVolley.ContentType.FORM)
+                //是否缓存，默认是 get 请求 5 缓存分钟, post 请求不缓存
+                .shouldCache(false)
+                .encoding("UTF-8") //编码格式，默认为utf-8
+                .doTask();  //执行请求操作
+    }
+
 }

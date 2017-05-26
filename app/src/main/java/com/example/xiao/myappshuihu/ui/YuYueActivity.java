@@ -14,13 +14,19 @@ import com.example.xiao.myappshuihu.dialog.PromptDialog;
 import com.example.xiao.myappshuihu.httpsocket.HttpConnectionUtils;
 import com.example.xiao.myappshuihu.httpsocket.HttpHandler;
 import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
+import com.example.xiao.myappshuihu.json.JsonParser;
 import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
 import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
+import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.MachineStateData;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
+import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
 import com.example.xiao.myappshuihu.utils.Utils;
 import com.example.xiao.myappshuihu.view.ListViewCompat;
+import com.kymjs.rxvolley.RxVolley;
+import com.kymjs.rxvolley.client.HttpCallback;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -202,17 +208,18 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                 if ("0".equals(status)) {
                     showPromptDialog(YuYueActivity.this.getString(R.string.heating_cancel_failed));
                 } else {
+                    Toasts.makeTexts(getApplicationContext(),"成功");
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_delete_success));
                     NZ_DBhelperManager.getInstance(YuYueActivity.this)
                             .delete(data);
                     adpter.notifyDataSetChanged();
                 }
             } else if (state == 103) {//更新预约，删除前记得取消
-                // MachineStateData stateData = JsonParser.getInstance()
-                // .revertJsonToObj(jObject, MachineStateData.class);
-                // if (!stateData.getData().getState().equals("0")) {
-                // showPromptDialog("服务器返回数据显示取消加热失败,赶紧去拔了电源吧");
-                // }
+      /*           MachineStateData stateData = JsonParser.getInstance()
+                        .revertJsonToObj(jObject, MachineStateData.class);
+                if (!stateData.getData().getState().equals("0")) {
+                    showPromptDialog("服务器返回数据显示取消加热失败,赶紧去拔了电源吧");
+                }*/
                 String status = "";
                 try {
                     JSONObject object = new JSONObject(jObject);
@@ -260,8 +267,10 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
         // 预约
         jr_list.clear();
         if (flag == 100) {
+
             String[] timeStrings = data.NZ_TIME.split(":");
             String resultString = "";
+            L.e("resultString   预约成功" +resultString);
             for (String tempString : timeStrings) {
                 resultString += tempString.length() == 1 ? "0" + tempString : tempString;
             }
@@ -329,8 +338,32 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                     jrhandler);
             httpUtil.create(1, HttpUrl.CANCELHEAT, jr_list);
             httpUtil.setState(103);//更新预约，和删除预约的功能一样，稍微修改一下提示而已
+            Toasts.makeTexts(getApplicationContext(),"修改预约成功");
+            //修改预约成功后 这里 要从服务器删除 修改之前预约的那条数据
+            deleteYuYue();
         }
 
+    }
+    /*删除上一条的预约记录 */
+    private void deleteYuYue() {
+        String orderid  = mList.get(adpter.onClickIte).ORDER_ID;
+        String urlssses = ConfigUtils.SHUIHU_ZONG_JIEKOU+ConfigUtils.DETATE_YUYUE+"appid/"+APPid+"/machineid/"+MACHINEID+"/orderid/"+orderid;
+        new RxVolley.Builder().callback(new HttpCallback() {
+            @Override
+            public void onSuccess(String t) {
+                super.onSuccess(t);
+                L.e("delte  删除 "+t);
+            }
+        })
+                .url(urlssses) //接口地址
+                //设置缓存时间: 默认是 get 请求 5 分钟, post 请求不缓存
+                .cacheTime(0)
+                //内容参数传递形式，如果不加，默认为 FORM 表单提交，可选项 JSON 内容
+                .contentType(RxVolley.ContentType.FORM)
+                //是否缓存，默认是 get 请求 5 缓存分钟, post 请求不缓存
+                .shouldCache(false)
+                .encoding("UTF-8") //编码格式，默认为utf-8
+                .doTask();  //执行请求操作
     }
 
 

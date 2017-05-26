@@ -2,6 +2,7 @@ package com.example.xiao.myappshuihu.dialog;
 
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,6 +14,11 @@ import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
 import com.example.xiao.myappshuihu.sqlite.MyGreenDaoUtils;
+import com.example.xiao.myappshuihu.utils.ConfigUtils;
+import com.example.xiao.myappshuihu.utils.ShareUtils;
+import com.kymjs.rxvolley.RxVolley;
+import com.kymjs.rxvolley.client.HttpCallback;
+import com.kymjs.rxvolley.client.HttpParams;
 import com.nostra13.universalimageloader.utils.L;
 
 
@@ -29,7 +35,8 @@ public class PopupWindowUtils extends BasePopupWindow implements View.OnClickLis
     private TextView tv_shijijier;
     //商品tatitle
     private TextView tv_titale;
-   private ShangPinLieBiaoBean.DataBean scbbss;
+    private ShangPinLieBiaoBean.DataBean scbbss;
+    private HttpParams params;
 //    private GwcSqlBeanDao scbbs;
 
     public PopupWindowUtils(Activity context, ShangPinLieBiaoBean.DataBean scbbss) {
@@ -99,6 +106,8 @@ public class PopupWindowUtils extends BasePopupWindow implements View.OnClickLis
                 }
                 break;
             case R.id.btn_adds:
+                addshoppingsRequest();
+
                 /* 保存到数据库*/
                 String moneyses = scbbss.getPrice();
                 String titale = scbbss.getName();
@@ -113,7 +122,7 @@ public class PopupWindowUtils extends BasePopupWindow implements View.OnClickLis
                * 然后 把你要存入的字段 通过构造器传过去就OK
                * */
                 ShangChenLiBiaoBean gsb = new ShangChenLiBiaoBean(null,titale,address,id,moneyses,fukuanre);
-               long ss =  sclbbd.insert(gsb);
+                long ss =  sclbbd.insert(gsb);
                 L.e("sss"+ss);
 
                     /*点击确定按钮的时候 商品金额数据就带过去·到购物车列表*/
@@ -129,5 +138,34 @@ public class PopupWindowUtils extends BasePopupWindow implements View.OnClickLis
 
                 break;
         }
+    }
+    /*将数据加入到购物车*/
+    private void addshoppingsRequest() {
+        String url = ConfigUtils.ZhuYuMing+ConfigUtils.ADD_SHPOPPINGS;
+        //获取用户识别符 登录成功后服务器返回的
+        String members = ShareUtils.getString(getContext(),"member","");
+        /*获取商品识别符*/
+        String commodity = scbbss.getId();
+        String color = scbbss.getColor();
+        String weight = scbbss.getWeight();
+       String numberss = scbbss.getRurchase_number();
+
+        if (!TextUtils.isEmpty(members)) {
+            params = new HttpParams();
+            params.put("memberid",members);
+            params.put("commodity",commodity);
+            params.put("color",color);
+            params.put("weight",weight);
+//            params.put("number",10);
+        }
+
+
+        RxVolley.post(url, params, new HttpCallback() {
+            @Override
+            public void onSuccess(String t) {
+                super.onSuccess(t);
+                L.e("jiarugouwuche   加入购物车" +t);
+            }
+        });
     }
 }

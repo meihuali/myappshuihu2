@@ -39,6 +39,9 @@
         <activity android:name=".ui.XQActivity"/>
         <!--购物车 仿照 淘宝的那个 界面-->
       <!--  <activity android:name="com.example.zerovoid.shoppingcart.activity.ShoppingCartActivity"/>-->
+            <!--添加设备 界面-->
+        <activity android:name=".ui.MachineActivity"/>
+
     </application>
 
     <!--banner图片轮播用到的权限-->

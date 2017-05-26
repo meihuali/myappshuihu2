@@ -180,9 +180,9 @@ public class YangShengHu extends Fragment implements OnBannerListener {
     }
         /*加载图片轮播*/
     private void loadeImagesFor() {
-        String url= "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1495442349&di=e2d8708ace7837a9977456156d93cd76&src=http://imgq.duitang.com/uploads/item/201412/31/20141231221103_EjHjV.thumb.700_0.jpeg";
+  /*      String url= "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1495442349&di=e2d8708ace7837a9977456156d93cd76&src=http://imgq.duitang.com/uploads/item/201412/31/20141231221103_EjHjV.thumb.700_0.jpeg";
         List<String> list = new ArrayList<>();
-        list.add(url);
+        list.add(url);*/
         //加载轮播图片  listImage
         banner.setImages(listImage)
                 .setImageLoader(new GliderImagsLoader())
