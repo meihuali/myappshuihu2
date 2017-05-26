@@ -11,6 +11,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 
 import com.example.xiao.myappshuihu.R;
@@ -21,6 +22,7 @@ import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
 import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
 import com.example.xiao.myappshuihu.utils.StringUtil;
 import com.example.xiao.myappshuihu.utils.ToastUtil;
+import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.view.ScrollerNumberPicker;
 
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class NZEditActivity extends Base2Activity implements OnClickListener,
 					else
 						showPromptDialog(NZEditActivity.this.getString(R.string.alarm_edit_confirm), NZEditActivity.this, -1, false);
 				} catch (Exception e) {
-					// TODO 自动生成的 catch 块
+
 					e.printStackTrace();
 				}
 			}

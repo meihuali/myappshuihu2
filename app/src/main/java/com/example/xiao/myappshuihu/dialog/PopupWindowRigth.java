@@ -79,6 +79,7 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
                 getContext().startActivity(new Intent(getContext(),SettingsActivity.class));
                 dismiss();
                 break;
+            //定时预约
             case R.id.tx_2:
                 Toasts.makeTexts(getContext(), "click tx_2");
                 Intent intent = new Intent(getContext(),YuYueActivity.class);

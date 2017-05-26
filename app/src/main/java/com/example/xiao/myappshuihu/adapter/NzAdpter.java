@@ -50,6 +50,7 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 	public int onClickIte=0;//记录最后被点击的是那个item，到时候需要关闭该item
 	private String[] numberStrings;
 	private Handler handler;
+
 	public void setHandler(Handler handler) {
 		this.handler = handler;
 	}
@@ -199,7 +200,6 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 				
 				@Override
 				public void onClick(View v) {
-					// TODO 自动生成的方法存根
 					if(bean.NZ_ISOPEN == 1){
 						v.setBackgroundResource(R.drawable.r1);
 						if(handler != null){

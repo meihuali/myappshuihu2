@@ -46,8 +46,7 @@ public class AnimationAdapterYSH extends BaseQuickAdapter<ShangPinLieBiaoBean.Da
             //设置出售金额
             helper.setText(R.id.tv_moneyss, item.getPrice());
             //设置 使用人数
-            helper.setText(R.id.tv_shiyongrenshu,item.getRurchase_number()+"个人在使用");
-
+            helper.setText(R.id.tv_shiyongrenshu,item.getRurchase_number());
             // 设置商品列表 上的图片
             String urlss = item.getImg(); //先拿到网络图片的url
             // 这里拼接图片路径
@@ -55,14 +54,11 @@ public class AnimationAdapterYSH extends BaseQuickAdapter<ShangPinLieBiaoBean.Da
             //这里要获得imageview 控件的对象 也就是初始化
             ImageView imge_liebiao = helper.getView(R.id.imge_liebiao);
             //glide 加载图片·
-            GlideUtils.loadImageViewDiskCache(context,urls,imge_liebiao);
-//            if (!TextUtils.isEmpty(urls)) {
-////                PicassoUtils.loadImageViewSize(context,urls,100,100,imge_liebiao);
-//                Glide.with(context)
-//                        .load(urls)
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .into(imge_liebiao);
-//           }
+            if (!TextUtils.isEmpty(urls)) {
+                GlideUtils.loadImageViewDiskCache(context,urls,imge_liebiao);
+            }
+
+
         }
 
 

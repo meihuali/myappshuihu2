@@ -16,6 +16,7 @@ import com.example.xiao.myappshuihu.httpsocket.HttpHandler;
 import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
 import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
 import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
+import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
 import com.example.xiao.myappshuihu.utils.Utils;
@@ -107,7 +108,6 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
             adpter.setHandler(handler);
             listview.setAdapter(adpter);
             listview.setOnItemClickListener(adpter);
-
         }
 
     }
@@ -116,12 +116,9 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 11) {
-
                     data = (NZ_DBhelperManager.NZYData) msg.obj;
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_set_confirm), YuYueActivity.this, 100, false);
-
             } else if (msg.what == 12) {
-
                     data = (NZ_DBhelperManager.NZYData) msg.obj;
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_delete_confirm), YuYueActivity.this, 101, false);
 
@@ -146,8 +143,10 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
     }
 
     private HttpHandler jrhandler = new HttpHandler(this) {
+        /*请求成功*/
         protected void succeed(String jObject, int state) {
             super.succeed(jObject, state);
+            L.e("cdddddd   "+jObject);
 
             if (state == 100) {//预约
                 showPromptDialog(YuYueActivity.this.getString(R.string.alarm_set_success));
@@ -234,9 +233,10 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
         }
 
         ;
-
+            /*请求失败*/
         protected void failed(String jObject, int state) {
             super.failed(jObject, state);
+            L.e("cdddddd  失败 "+jObject);
             if (state == 101) {
                 showPromptDialog(YuYueActivity.this.getString(R.string.heating_cancel_failed));
             } else if (state == 100) {//有情况是预约还没有取消，导致无法清除预约，这时候直接设置为已经开始？

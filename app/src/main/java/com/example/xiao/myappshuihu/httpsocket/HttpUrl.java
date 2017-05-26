@@ -8,9 +8,9 @@ public class HttpUrl {
     public static final String IMGURL = "http://112.124.125.97:8082/";
     // public static final String URL = "http://112.124.125.97:8081";
     //
-    public static final String URL = "http://api.sunyie.com:8081";// 正式
-//    public static final String URL = "http://api.sunsyi.com:8081";//测试
-    //public static final String URL = "http://112.124.125.97:8082/";
+  public static final String URL = "http://api.sunyie.com:8081";// 正式
+    //public static final String URL = "http://gkettle.sunyie.com";// 正式
+
     /**
      * 注册APP
      */

@@ -35,8 +35,10 @@
         <activity android:name=".ui.YuYueActivity"/>
         <!--这个的是预约定时界面 进去后 点击右上角加号 在进去的那个界面-->
         <activity android:name=".ui.NZEditActivity"/>
+        <!--XQActivity-->
+        <activity android:name=".ui.XQActivity"/>
         <!--购物车 仿照 淘宝的那个 界面-->
-        <activity android:name="com.example.zerovoid.shoppingcart.activity.ShoppingCartActivity"/>
+      <!--  <activity android:name="com.example.zerovoid.shoppingcart.activity.ShoppingCartActivity"/>-->
     </application>
 
     <!--banner图片轮播用到的权限-->
