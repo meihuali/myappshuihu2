@@ -10,15 +10,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.xiao.myappshuihu.entity.LoginBean;
 import com.example.xiao.myappshuihu.fragmengt.ShangCheng;
 import com.example.xiao.myappshuihu.fragmengt.ShouYe;
 import com.example.xiao.myappshuihu.fragmengt.WoDe;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
+import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.MD5Util;
+import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.Toasts;
+import com.google.gson.Gson;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 import com.kymjs.rxvolley.client.HttpParams;
 import com.kymjs.rxvolley.http.VolleyError;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     /*声明三个tab栏的 linelayout*/
@@ -29,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_00,tv_01,tv_02;
     /*声明tab栏下面的 每一张图片Image*/
     private ImageView image_00,image_01,image_02;
+    /*声明 模拟登录 的那个 集合 */
+    private List<LoginBean> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,18 +46,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView(); //初始化
         setSelect(0); //默认选择第几个开场的tab栏 显示
-        initRequest();
+        initRequest(); //模拟登录
     }
         /*模仿登录接口*/
     private void initRequest() {
+        //传参密码 要加密成 MD5
+       String md5PassWord =  MD5Util.getStringMD5("123456");
         String url = ConfigUtils.ZhuYuMing+ConfigUtils.LOGIN_SONCESS;
         HttpParams paresm = new HttpParams();
-        paresm.put("name","13144743445");
-        paresm.put("password","");
+        paresm.put("phone","13144743445");
+        paresm.put("password",md5PassWord);
         RxVolley.post(url, paresm, new HttpCallback() {
             @Override
             public void onSuccess(String t) {
                 super.onSuccess(t);
+                L.e("dengluqingqiuchengg "+t);
+                Gson gson = new Gson();
+               LoginBean lb =  gson.fromJson(t,LoginBean.class);
+               int status =  lb.getStatus();
+                if (status == 1) {
+                    try {
+                        LoginBean.DataBean lbdb = lb.getData();
+                        String member =  lbdb.getMember_id();
+                    /*保存登录返回的 那个字段 ID*/
+                        ShareUtils.putString(getApplicationContext(),"member",member);
+                    } catch (Exception e) {
+                        Toasts.makeTexts(getApplicationContext(),"解析出错，可能接口问题");
+                    }
+
+                } else {
+                    Toasts.makeTexts(getApplicationContext(),"登录接口有问题");
+                }
             }
 
             @Override
