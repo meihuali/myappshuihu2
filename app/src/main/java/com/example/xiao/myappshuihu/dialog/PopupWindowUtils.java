@@ -16,9 +16,12 @@ import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
 import com.example.xiao.myappshuihu.sqlite.MyGreenDaoUtils;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
+import com.example.xiao.myappshuihu.utils.Toasts;
+import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 import com.kymjs.rxvolley.client.HttpParams;
+import com.kymjs.rxvolley.http.VolleyError;
 import com.nostra13.universalimageloader.utils.L;
 
 
@@ -106,7 +109,13 @@ public class PopupWindowUtils extends BasePopupWindow implements View.OnClickLis
                 }
                 break;
             case R.id.btn_adds:
-                addshoppingsRequest();
+                try {
+                    addshoppingsRequest(); //加入购物车 的方法
+                } catch (Exception e) {
+
+                    Toasts.makeTexts(getContext(),"加入购物车接口挂了···");
+                }
+
 
                 /* 保存到数据库*/
                 String moneyses = scbbss.getPrice();
@@ -152,19 +161,24 @@ public class PopupWindowUtils extends BasePopupWindow implements View.OnClickLis
 
         if (!TextUtils.isEmpty(members)) {
             params = new HttpParams();
-            params.put("memberid",members);
+            params.put("member_id",members);
             params.put("commodity",commodity);
             params.put("color",color);
             params.put("weight",weight);
-//            params.put("number",10);
+           params.put("number",1);
         }
-
-
         RxVolley.post(url, params, new HttpCallback() {
             @Override
             public void onSuccess(String t) {
                 super.onSuccess(t);
                 L.e("jiarugouwuche   加入购物车" +t);
+                Toasts.makeTexts(getContext(),"成恭喜加入一条商品");
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+                super.onFailure(error);
+                L.e("jiarugouwucheshibai" +error);
             }
         });
     }

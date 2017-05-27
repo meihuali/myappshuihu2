@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.adapter.AnimationAdapter;
+import com.example.xiao.myappshuihu.dialog.PopupWindowUtils;
 import com.example.xiao.myappshuihu.entity.FenLeiLieBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
+import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoTwoBean;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.GliderImagsLoader;
@@ -54,7 +56,7 @@ public class FenLei extends Fragment implements OnBannerListener{
     //轮播图 解析出来的那个URl  封装的 实体
     private List<String> listImage = new ArrayList<>();
     //商品列表 集合
-    private List<ShangPinLieBiaoTwoBean.DataBean> shpoinglist = new ArrayList<>();
+    private List<ShangPinLieBiaoBean.DataBean> shpoinglist = new ArrayList<>();
 
     @Nullable
     @Override
@@ -87,16 +89,21 @@ public class FenLei extends Fragment implements OnBannerListener{
     /*解析商品列表*/
     private void parsers(String t) {
         Gson gson = new Gson();
-        ShangPinLieBiaoTwoBean splbb = gson.fromJson(t, ShangPinLieBiaoTwoBean.class);
-        String statatus = splbb.getStatus();
-        if (statatus.equals("1")) {
-            List<ShangPinLieBiaoTwoBean.DataBean> shangpingjiexi = splbb.getData();
-            shpoinglist.addAll(shangpingjiexi);
-            mAnimationAdapter.notifyDataSetChanged(); //刷新adapter
+        try {
+            ShangPinLieBiaoBean splbb = gson.fromJson(t, ShangPinLieBiaoBean.class);
+            String statatus = splbb.getStatus();
+            if (statatus.equals("1")) {
+                List<ShangPinLieBiaoBean.DataBean> shangpingjiexi = splbb.getData();
+                shpoinglist.addAll(shangpingjiexi);
+                mAnimationAdapter.notifyDataSetChanged(); //刷新adapter
 
-        } else {
-            Toasts.makeTexts(getActivity(),"商品列表status出错");
+            } else {
+                Toasts.makeTexts(getActivity(),"商品列表status出错");
+            }
+        } catch (Exception e) {
+            Toasts.makeTexts(getActivity(),"分类列表接口挂了");
         }
+
     }
 
     /*设置图片轮播的数据*/
@@ -130,24 +137,29 @@ public class FenLei extends Fragment implements OnBannerListener{
     /*解析数据源呈现轮播图片*/
     private void parser(String t) {
         Gson gson = new Gson();
-        FenLeiLieBiaoBean lbib = gson.fromJson(t, FenLeiLieBiaoBean.class);
-        String  status = lbib.getStatus();
-        if (status.equals("1")) {
-            List<FenLeiLieBiaoBean.DataBean> list2 = lbib.getData();
-            list1.addAll(list2);
+        try {
+            FenLeiLieBiaoBean lbib = gson.fromJson(t, FenLeiLieBiaoBean.class);
+            String  status = lbib.getStatus();
+            if (status.equals("1")) {
+                List<FenLeiLieBiaoBean.DataBean> list2 = lbib.getData();
+                list1.addAll(list2);
 
-            //简单实用banner
-            for (int i = 0; i < list1.size(); i++) {
-                String url = list1.get(i).getImg();
-                String urls = ConfigUtils.LU_BO_IMAGE+url;
-                listImage.add(urls);
+                //简单实用banner
+                for (int i = 0; i < list1.size(); i++) {
+                    String url = list1.get(i).getImg();
+                    String urls = ConfigUtils.LU_BO_IMAGE+url;
+                    listImage.add(urls);
+                }
+                //加载轮播图片
+                banner.setImages(listImage)
+                        .setImageLoader(new GliderImagsLoader())
+                        .setOnBannerListener(this)
+                        .start();
             }
-            //加载轮播图片
-            banner.setImages(listImage)
-                    .setImageLoader(new GliderImagsLoader())
-                    .setOnBannerListener(this)
-                    .start();
+        } catch (Exception e) {
+            Toasts.makeTexts(getActivity(),"分类界面图片轮播接口挂了");
         }
+
     }
 
     /*初始化*/
@@ -184,6 +196,9 @@ public class FenLei extends Fragment implements OnBannerListener{
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.imge_gouwuche:
+                        ShangPinLieBiaoBean.DataBean splbtb =  shpoinglist.get(position);
+                        PopupWindowUtils pwu = new PopupWindowUtils(getActivity(),splbtb);
+                        pwu.showPopupWindow();
 
                     break;
                 }

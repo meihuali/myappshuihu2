@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
+import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoTwoBean;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.PicassoUtils;
@@ -21,18 +22,18 @@ import java.util.List;
  * 创建时间： 2017/5/9 0009 上午 10:35
  * 描述：TODO
  */
-public class AnimationAdapter extends BaseQuickAdapter<ShangPinLieBiaoTwoBean.DataBean,BaseViewHolder> {
-    private List<ShangChenLiBiaoBean> data;
+public class AnimationAdapter extends BaseQuickAdapter<ShangPinLieBiaoBean.DataBean,BaseViewHolder> {
+    private List<ShangPinLieBiaoBean.DataBean> data;
     private Context context;
 
-    public AnimationAdapter(int layoutResId,List<ShangPinLieBiaoTwoBean.DataBean> data,Context context) {
+    public AnimationAdapter(int layoutResId,List<ShangPinLieBiaoBean.DataBean> data,Context context) {
         super(layoutResId, data);
         this.context = context;
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, ShangPinLieBiaoTwoBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, ShangPinLieBiaoBean.DataBean item) {
         //给item 上的子控件设置监听 然后在 主activity 里面调用 用adapter 掉setOnItemChildClickListener
         helper.addOnClickListener(R.id.imge_gouwuche);
         if (item != null) {
@@ -43,7 +44,7 @@ public class AnimationAdapter extends BaseQuickAdapter<ShangPinLieBiaoTwoBean.Da
             //设置出售金额
             helper.setText(R.id.tv_moneyss, item.getPrice());
             //设置 使用人数
-            helper.setText(R.id.tv_shiyongrenshu,item.getRurchase_number()+"个人在使用");
+            helper.setText(R.id.tv_shiyongrenshu,item.getRurchase_number());
 
             // 设置商品列表 上的图片
             String urlss = item.getImg(); //先拿到网络图片的url

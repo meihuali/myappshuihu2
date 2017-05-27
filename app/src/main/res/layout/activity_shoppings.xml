@@ -23,23 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent" />
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/llay_xiantiao"
-        android:layout_below="@+id/llay_tayout"
-        android:layout_marginTop="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@color/huise"
-            android:layout_width="match_parent"
-            android:layout_height="0.4dp"/>
-    </LinearLayout>
+
     <LinearLayout
         android:layout_above="@+id/rlBottomBar"
         android:id="@+id/Mrescy"
-        android:layout_below="@+id/llay_xiantiao"
+        android:layout_below="@+id/llay_tayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView

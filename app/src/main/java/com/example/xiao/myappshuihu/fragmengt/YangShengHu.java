@@ -101,22 +101,26 @@ public class YangShengHu extends Fragment implements OnBannerListener {
         /*解析商品列表*/
     private void parsers(String t) {
         Gson gson = new Gson();
-        ShangPinLieBiaoBean splbb = gson.fromJson(t, ShangPinLieBiaoBean.class);
-        String statatus = splbb.getStatus();
-        if (statatus.equals("1")) {
-            List<ShangPinLieBiaoBean.DataBean> shangpingjiexi = splbb.getData();
-            shpoinglist.addAll(shangpingjiexi);
+        try {
+            ShangPinLieBiaoBean splbb = gson.fromJson(t, ShangPinLieBiaoBean.class);
+            String statatus = splbb.getStatus();
+            if (statatus.equals("1")) {
+                List<ShangPinLieBiaoBean.DataBean> shangpingjiexi = splbb.getData();
+                shpoinglist.addAll(shangpingjiexi);
 
-        } else {
-            Toasts.makeTexts(getActivity(),"商品列表status出错");
+            } else {
+                Toasts.makeTexts(getActivity(),"商品列表status出错");
+            }
+
+        } catch (Exception e) {
+            Toasts.makeTexts(getActivity(),"养生壶商品列表解析出错");
         }
+
 
     }
 
     /*设置图片轮播的数据*/
     private void initData(View view) {
-
-
         String lujin = "Healthkettle/image.php/type/1";
         String url = ConfigUtils.CONFIG+lujin;
 //                /* 假数据 获取本地 封装的 url路径的 图片地址*/

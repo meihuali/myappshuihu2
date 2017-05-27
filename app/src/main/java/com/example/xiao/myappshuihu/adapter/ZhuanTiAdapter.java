@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.xiao.myappshuihu.R;
+import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
 import com.example.xiao.myappshuihu.entity.ZhuanTiBean;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.L;
@@ -17,17 +18,17 @@ import java.util.List;
  * Created by Administrator on 2017/5/16 0016.
  */
 
-public class ZhuanTiAdapter extends BaseQuickAdapter<ZhuanTiBean.DataBean,BaseViewHolder>{
-    private List<ZhuanTiBean.DataBean> data;
+public class ZhuanTiAdapter extends BaseQuickAdapter<ShangPinLieBiaoBean.DataBean,BaseViewHolder>{
+    private List<ShangPinLieBiaoBean.DataBean> data;
     private Context context;
-    public ZhuanTiAdapter(int layoutResId,List<ZhuanTiBean.DataBean> data,Context context) {
+    public ZhuanTiAdapter(int layoutResId, List<ShangPinLieBiaoBean.DataBean> data, Context context) {
         super(layoutResId, data);
         this.context = context;
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, ZhuanTiBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, ShangPinLieBiaoBean.DataBean item) {
         L.e("item "+item);
         //给item 上的子控件设置监听 然后在 主activity 里面调用 用adapter 掉setOnItemChildClickListener
         helper.addOnClickListener(R.id.imge_gouwuche);

@@ -48,5 +48,6 @@ public class ConfigUtils {
 
     /*===============================修改水壶 预约的 ===================================================*/
     public static final String DETATE_YUYUE = "/teapot/deleteAppointment/";
-
+    /*==========================购物车清单 接口====================================================================*/
+    public static final String SHOPPINGEDSE_CART = "Afterlogin/getshoppingcart.php";
 }

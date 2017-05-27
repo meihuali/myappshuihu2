@@ -16,10 +16,20 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.adapter.ShoppingsAdapterYSH;
 import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
+import com.example.xiao.myappshuihu.entity.ShoppingcartlistBean;
 import com.example.xiao.myappshuihu.sqlite.MyGreenDaoUtils;
+import com.example.xiao.myappshuihu.utils.ConfigUtils;
+import com.example.xiao.myappshuihu.utils.DividerItemDecoration;
+import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.ShoppingCartBiz;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.utils.ZiFuChuanZhuanHuan;
+import com.google.gson.Gson;
+import com.kymjs.rxvolley.RxVolley;
+import com.kymjs.rxvolley.client.HttpCallback;
+import com.kymjs.rxvolley.client.HttpParams;
+import com.kymjs.rxvolley.http.VolleyError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +49,8 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
     private ShoppingsAdapterYSH shoppingsAdapter;
     private ImageView imge_back;
     //假数据 集合
-    private List<ShangChenLiBiaoBean> list = new ArrayList<>();
+//    private List<ShangChenLiBiaoBean> list = new ArrayList<>();
+   private List<ShoppingcartlistBean.DataBean> list = new ArrayList<>();
     private EditText et_shru;
     private TextView tv_add;
     private String types = "1";
@@ -62,9 +73,11 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
 
 
     private ImageView ivCheckGood;
-    private List<ShangChenLiBiaoBean> litss;
-    private ShangChenLiBiaoBean gwcb;
+//    private List<ShangChenLiBiaoBean> litss;
+    private ShoppingcartlistBean.DataBean  gwcb;
     ImageView ivSelectAll;
+    //购物车清单 集合
+    private List<ShoppingcartlistBean> mlistshoppingcat;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +86,6 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
         ivSelectAll=(ImageView)findViewById(R.id.ivSelectAll);
         tvCountMoney = (TextView) findViewById(R.id.tvCountMoney);
         initView();
-
     }
 
 
@@ -91,15 +103,9 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
         //设置 mRecyclerView 的管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // 这里是遍历的假数据
-    /*    for (int i = 0; i <30; i++) {
-            GouWuCheBean gdcb = new GouWuCheBean();
-            gdcb.setCounts(0);
-            gdcb.setMoney(198);
-            list.add(gdcb);
-        }*/
         /*设置适配器*/
         shoppingsAdapter = new ShoppingsAdapterYSH(R.layout.activity_shoppings_item, list, getApplicationContext());
+        //这个是一个适配里面的接口回调
         shoppingsAdapter.setOnShoppingCartChangeListener(new ShoppingsAdapterYSH.OnShoppingCartChangeListener() {
             @Override
             public void onDataChange(String selectCount, String selectMoney) {
@@ -110,8 +116,9 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
             public void onSelectItem(boolean isSelectedAll) {
                 ShoppingCartBiz.checkItem(isSelectedAll, ivSelectAll);
             }
-            @Override
-            public void onItemCheck(ShangChenLiBiaoBean item) {//单选按钮
+
+            @Override  //单选按钮
+            public void onItemCheck(ShoppingcartlistBean.DataBean item) {
                 for(int i=0;i<list.size();i++){
                     if(list.get(i)==item){
                         if(item.isChildSelected()){
@@ -133,42 +140,73 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
             //结算时，一般是需要将数据传给订单界面的
             btnSettle.setOnClickListener(shoppingsAdapter.getAdapterListener());
         }
-
         mRecyclerView.setAdapter(shoppingsAdapter);
+
 //        这一句是开启 item 动画
         shoppingsAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         //这句话·是绑定 recycleView 可以初始化 任何控件
         shoppingsAdapter.bindToRecyclerView(mRecyclerView);
-
-        //从数据库取数据
+/*======================下面这两句是从本地sqlite 数据库中去取出数据源===================================================================*/
+  /*      //从数据库取数据
         litss = MyGreenDaoUtils.getqueryUserList(getApplicationContext());
         //添加到集合中
-        list.addAll(litss);
-        shoppingsAdapter.notifyDataSetChanged();
+        list.addAll(litss);*/
+  /*===========================================================================================*/
+        //从服务器请求 数据源
+        requsetHttpAskingshoppingcart();
 
         //设置item点击监听
         shoppingsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-                    case R.id.image_colses:
+/*                    case R.id.image_colses:
                         gwcb = list.get(position);
                         list.remove(gwcb);
                         //清楚集合后把 下面的总金额显示的 数据设为0
 //                        tv_moneyes.setText(0+"");
                         shoppingsAdapter.notifyDataSetChanged();
                         shoppingsAdapter.notifyItemChanged(position);
-
 //                       从数据库  删除点击的那个对象
-                        MyGreenDaoUtils.deleData(getApplicationContext(), gwcb);
-                        break;
-
-
+                  //      MyGreenDaoUtils.deleData(getApplicationContext(), gwcb);
+                        break;*/
 //                         /* 这个方法是用来在activity 中初始化 item上的 控件的 */
 //                        ivCheckGood = (ImageView) shoppingsAdapter.getViewByPosition(position, R.id.ivCheckGood);
-
-
                 }
+            }
+        });
+
+
+    }
+    /*从服务器请求商品列表的接口*/
+    private void requsetHttpAskingshoppingcart() {
+        String url = ConfigUtils.ZhuYuMing+ConfigUtils.SHOPPINGEDSE_CART;
+        HttpParams params = new HttpParams();
+        String members =  ShareUtils.getString(getApplicationContext(),"member","");
+        params.put("member_id",members);
+        RxVolley.post(url, params, new HttpCallback() {
+            @Override
+            public void onSuccess(String t) {
+                super.onSuccess(t);
+                L.e("gouwucheqingdan  购物车清单"+t);
+                try {
+                    Gson gson = new Gson();
+                    ShoppingcartlistBean shoping =  gson.fromJson(t, ShoppingcartlistBean.class);
+                    int status = shoping.getStatus();
+                    if (status == 1) {
+                       List<ShoppingcartlistBean.DataBean> shopingbenData =  shoping.getData();
+                        list.addAll(shopingbenData);
+                        shoppingsAdapter.notifyDataSetChanged();
+                    }
+                } catch (Exception e) {
+                    Toasts.makeTexts(getApplicationContext(),"购物车清单接口解析失败···");
+                }
+            }
+
+            @Override
+            public void onFailure(VolleyError error) {
+                super.onFailure(error);
+                Toasts.makeTexts(getApplicationContext(),"购物车清单接口挂了···");
             }
         });
 
@@ -181,10 +219,10 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
     private void operateTotalMoney() {
         Double money = 0.0;
         int number=0;
-        for (ShangChenLiBiaoBean bean : list) {
+        for (ShoppingcartlistBean.DataBean bean : list) {
             if (bean.isChildSelected()) {
                 try {
-                    money += Double.parseDouble(bean.getMoney()) * Integer.parseInt(bean.getNumber());
+                    money += Double.parseDouble(bean.getPrice()) * Integer.parseInt(bean.getNumber());
                     number+=Integer.parseInt(bean.getNumber());
                 } catch (Exception e) {
                     continue;
@@ -204,19 +242,19 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
                 finish();
                 break;
             case R.id.ivSelectAll: //这里是全选
-                  if(ivSelectAll.getTag()==null||!(Boolean) ivSelectAll.getTag()){
-                      ivSelectAll.setImageResource(R.drawable.ic_checked);
-                      ivSelectAll.setTag(true);
-                      for(ShangChenLiBiaoBean bean:list){
-                          bean.setIsChildSelected(true);
-                      }
-                  }else{
-                      ivSelectAll.setImageResource(R.drawable.ic_uncheck);
-                      ivSelectAll.setTag(false);
-                      for(ShangChenLiBiaoBean bean:list){
-                          bean.setIsChildSelected(false);
-                      }
-                  }
+                if(ivSelectAll.getTag()==null||!(Boolean) ivSelectAll.getTag()){
+                    ivSelectAll.setImageResource(R.drawable.ic_checked);
+                    ivSelectAll.setTag(true);
+                    for(ShoppingcartlistBean.DataBean bean:list){
+                        bean.setIsChildSelected(true);
+                    }
+                }else{
+                    ivSelectAll.setImageResource(R.drawable.ic_uncheck);
+                    ivSelectAll.setTag(false);
+                    for(ShoppingcartlistBean.DataBean bean:list){
+                        bean.setIsChildSelected(false);
+                    }
+                }
                 shoppingsAdapter.notifyDataSetChanged();
                 operateTotalMoney();
                 break;

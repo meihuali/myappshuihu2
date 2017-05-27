@@ -68,21 +68,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onSuccess(t);
                 L.e("dengluqingqiuchengg "+t);
                 Gson gson = new Gson();
-               LoginBean lb =  gson.fromJson(t,LoginBean.class);
-               int status =  lb.getStatus();
-                if (status == 1) {
-                    try {
-                        LoginBean.DataBean lbdb = lb.getData();
-                        String member =  lbdb.getMember_id();
+                try {
+                    LoginBean lb =  gson.fromJson(t,LoginBean.class);
+                    int status =  lb.getStatus();
+                    if (status == 1) {
+                        try {
+                            LoginBean.DataBean lbdb = lb.getData();
+                            String member =  lbdb.getMember_id();
                     /*保存登录返回的 那个字段 ID*/
-                        ShareUtils.putString(getApplicationContext(),"member",member);
-                    } catch (Exception e) {
-                        Toasts.makeTexts(getApplicationContext(),"解析出错，可能接口问题");
+                            ShareUtils.putString(getApplicationContext(),"member",member);
+                        } catch (Exception e) {
+                            Toasts.makeTexts(getApplicationContext(),"解析出错，可能接口问题");
+                        }
+
+                    } else {
+                        Toasts.makeTexts(getApplicationContext(),"登录接口有问题");
                     }
 
-                } else {
-                    Toasts.makeTexts(getApplicationContext(),"登录接口有问题");
+                } catch (Exception e) {
+                    Toasts.makeTexts(getApplicationContext(),"登录接口挂了");
                 }
+
             }
 
             @Override

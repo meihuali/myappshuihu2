@@ -57,6 +57,7 @@
     <string name="qishiwa">70w</string>
     <string name="caozuofangshis">操作方式</string>
     <string name="yangshengtang1">养生汤</string>
+    <string name="shangchengshuihu">水壶</string>
 
     <!--=====================icHome=====================================-->
     <string name="action_settings">Settings</string>
@@ -456,6 +457,9 @@
     <string name="soft_updating">下载中……</string>
     <string name="login_fail">登录发生错误</string>
     <string name="no_user">不存在该用户</string>
+    <string name="btn_deletes">删除</string>
+    <string name="btn_addses">添加</string>
+
 
     <!--防淘宝购物车-->
     <string name="title_activity_expandable">ExpandableActivity</string>
@@ -472,4 +476,6 @@
     <string name="jiesuan2">结算（%s）</string>
     <string name="cart_title_0">购物车(0)</string>
     <string name="cart_title">购物车(%s)</string>
+    <string name="yanse">颜色</string>
+
 </resources>

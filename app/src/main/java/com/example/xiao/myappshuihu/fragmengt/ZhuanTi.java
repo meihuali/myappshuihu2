@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.adapter.ZhuanTiAdapter;
+import com.example.xiao.myappshuihu.dialog.PopupWindowUtils;
 import com.example.xiao.myappshuihu.entity.LunBoImageBean;
+import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
 import com.example.xiao.myappshuihu.entity.ZhuanTiBean;
 import com.example.xiao.myappshuihu.ui.WebViewActivity;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
@@ -50,7 +52,7 @@ public class ZhuanTi extends Fragment implements OnBannerListener {
     //轮播图 解析出来的那个URl  封装的 实体
     private List<String> listImage = new ArrayList<>();
     //商品列表 集合
-    private List<ZhuanTiBean.DataBean> shpoinglist = new ArrayList<>();
+    private List<ShangPinLieBiaoBean.DataBean> shpoinglist = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,13 +90,13 @@ public class ZhuanTi extends Fragment implements OnBannerListener {
                 .encoding("UTF-8") //编码格式，默认为utf-8
                 .doTask();  //执行请求操作
     }
-        /*解析商品列表*/
+    /*解析商品列表*/
     private void parsers(String t) {
         Gson gson = new Gson();
-        ZhuanTiBean splbb = gson.fromJson(t, ZhuanTiBean.class);
+        ShangPinLieBiaoBean splbb = gson.fromJson(t, ShangPinLieBiaoBean.class);
         String statatus = splbb.getStatus();
         if (statatus.equals("1")) {
-            List<ZhuanTiBean.DataBean> shangpingjiexi = splbb.getData();
+            List<ShangPinLieBiaoBean.DataBean> shangpingjiexi = splbb.getData();
             shpoinglist.addAll(shangpingjiexi);
 
         } else {
@@ -182,17 +184,12 @@ public class ZhuanTi extends Fragment implements OnBannerListener {
                 switch (view.getId()) {
                     /*子控件点击事件*/
                     case R.id.imge_gouwuche:
-                        /*先获取被点击的item 上的所有字段的数据*/
-      /*                  String address = lists.get(position).getAddress();
-                        String Freeshipping =  lists.get(position).getFreeshipping();
-                        String Fukunreshu =  lists.get(position).getFukuanrenshu();
-                        String money = lists.get(position).getMoney();
-                        String titale = lists.get(position).getTitale();*/
+
 
                         /*点击按钮 显示 popupWindow*/
-                        ZhuanTiBean.DataBean sclbb = shpoinglist.get(position);
-//                        PopupWindowUtils pwu = new PopupWindowUtils(getActivity(),sclbb);
-//                        pwu.showPopupWindow();
+                        ShangPinLieBiaoBean.DataBean sclbb = shpoinglist.get(position);
+                        PopupWindowUtils pwu = new PopupWindowUtils(getActivity(),sclbb);
+                        pwu.showPopupWindow();
                         break;
 
                     //点击总item 要做的事情

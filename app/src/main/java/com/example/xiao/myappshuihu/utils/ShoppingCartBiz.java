@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
+import com.example.xiao.myappshuihu.entity.ShoppingcartlistBean;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class ShoppingCartBiz {
     /** 增减数量，操作通用，数据不通用 */
-    public static String addOrReduceGoodsNum(boolean isPlus, ShangChenLiBiaoBean goods, EditText tvNum) {
+    public static String addOrReduceGoodsNum(boolean isPlus, ShoppingcartlistBean.DataBean goods, EditText tvNum) {
         String currentNum = goods.getNumber().trim();
         String num = "1";
         if (isPlus) {
@@ -42,7 +43,7 @@ public class ShoppingCartBiz {
      *
      * @return 0=选中的商品数量；1=选中的商品总价
      */
-    public static String[] getShoppingCount(List<ShangChenLiBiaoBean> listGoods) {
+    public static String[] getShoppingCount(List<ShoppingcartlistBean.DataBean> listGoods) {
         String[] infos = new String[2];
         String selectedCount = "0";
         String selectedMoney = "0";
@@ -50,7 +51,7 @@ public class ShoppingCartBiz {
             for (int j = 0; j < listGoods.size(); j++) {
                 boolean isSelectd = listGoods.get(j).isChildSelected();
                 if (isSelectd) {
-                    String price = listGoods.get(j).getMoney();
+                    String price = listGoods.get(j).getPrice();
                     String num = listGoods.get(j).getNumber();
                     String countMoney = DecimalUtil.multiply(price, num);
                     selectedMoney = DecimalUtil.add(selectedMoney, countMoney);
@@ -129,7 +130,7 @@ public class ShoppingCartBiz {
         return true;
     }
 
-    public static boolean hasSelectedGoods(List<ShangChenLiBiaoBean> listGoods) {
+    public static boolean hasSelectedGoods(List<ShoppingcartlistBean.DataBean> listGoods) {
         String count = getShoppingCount(listGoods)[0];
         if ("0".equals(count)) {
             return false;
