@@ -95,7 +95,7 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true">
 
-                        <EditText
+                        <TextView
                             android:textColor="@color/top_red"
                             android:id="@+id/et_shru"
                             android:layout_width="match_parent"

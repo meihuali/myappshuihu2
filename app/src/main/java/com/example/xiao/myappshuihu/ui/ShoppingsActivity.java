@@ -184,6 +184,7 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
         HttpParams params = new HttpParams();
         String members =  ShareUtils.getString(getApplicationContext(),"member","");
         params.put("member_id",members);
+
         RxVolley.post(url, params, new HttpCallback() {
             @Override
             public void onSuccess(String t) {

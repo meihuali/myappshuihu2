@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ShoppingCartBiz {
     /** 增减数量，操作通用，数据不通用 */
-    public static String addOrReduceGoodsNum(boolean isPlus, ShoppingcartlistBean.DataBean goods, EditText tvNum) {
+    public static String addOrReduceGoodsNum(boolean isPlus, ShoppingcartlistBean.DataBean goods, TextView tvNum) {
         String currentNum = goods.getNumber().trim();
         String num = "1";
         if (isPlus) {

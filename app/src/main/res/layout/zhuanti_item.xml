@@ -12,16 +12,16 @@
         <LinearLayout
             android:layout_marginRight="10dp"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_weight="1.8"
+            android:layout_height="130dp">
             <ImageView
                 android:id="@+id/imge_liebiao"
-                android:layout_marginLeft="15sp"
                 android:src="@drawable/huacha"
-                android:layout_width="70dp"
-                android:layout_height="100dp" />
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
         </LinearLayout>
         <LinearLayout
+            android:layout_marginTop="15dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:layout_width="0dp"
@@ -30,8 +30,8 @@
             <TextView
                 android:id="@+id/tv_titales"
                 android:textColor="@color/txt_balck"
-                android:layout_marginLeft="15dp"
-                android:textSize="18sp"
+                android:layout_marginLeft="12dp"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:text="@string/yangshenghulieb"
                 android:layout_width="wrap_content"
@@ -100,12 +100,10 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="90dp">
+            android:layout_weight="0.6"
+            android:layout_height="110dp">
             <ImageView
                 android:id="@+id/imge_gouwuche"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="15dp"
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/gouwuche"
                 android:layout_width="30dp"

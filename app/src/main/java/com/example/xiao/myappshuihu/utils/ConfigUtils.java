@@ -50,4 +50,7 @@ public class ConfigUtils {
     public static final String DETATE_YUYUE = "/teapot/deleteAppointment/";
     /*==========================购物车清单 接口====================================================================*/
     public static final String SHOPPINGEDSE_CART = "Afterlogin/getshoppingcart.php";
+    /*=============================修改购物车 清单 接口==========================================================*/
+    public static final String XIUGAIGOUWUCHEJIEKOU = "Afterlogin/changeshoppingcart.php";
+
 }

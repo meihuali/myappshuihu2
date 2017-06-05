@@ -23,11 +23,18 @@ import com.example.xiao.myappshuihu.sqlite.MyGreenDaoUtils;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.GlideUtils;
 import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.ShoppingCartBiz;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.utils.ZiFuChuanZhuanHuan;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 
+import java.net.URL;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 import static com.example.xiao.myappshuihu.R.id.holder;
 
@@ -44,7 +51,7 @@ public class ShoppingsAdapterYSH extends BaseQuickAdapter<ShoppingcartlistBean.D
     public Context context;
     private boolean isBoolean;
     private int cuonts = 1;
-    private EditText et_shru;
+    private TextView et_shru;
     private ImageView tv_jian;
     private ImageView tv_jian_liang;
     private double moneys;
@@ -127,15 +134,21 @@ public class ShoppingsAdapterYSH extends BaseQuickAdapter<ShoppingcartlistBean.D
         helper.getView(R.id.tv_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShoppingCartBiz.addOrReduceGoodsNum(true, item, ( (EditText) (  ((View) (view.getParent())  ).findViewById(R.id.et_shru) )  ) );
+                String addnum =  ShoppingCartBiz.addOrReduceGoodsNum(true, item, ( (TextView) (  ((View) (view.getParent())  ).findViewById(R.id.et_shru) )  ) );
                 setSettleInfo();
+                /*点击加号 修改 个数然后发给服务器*/
+                String orderid = item.getOrderid();
+                String color = item.getColor();
+                String weight = item.getWeight();
+
+              requestHttp(orderid,addnum,color,weight);
             }
         });
         /*这里是点击item 上的减号去 减少商品件数*/
         helper.getView(R.id.tv_jian_liang).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String num = ShoppingCartBiz.addOrReduceGoodsNum(false, item, ((EditText) (((View) (view.getParent())).findViewById(R.id.et_shru))));
+                String num = ShoppingCartBiz.addOrReduceGoodsNum(false, item, ((TextView) (((View) (view.getParent())).findViewById(R.id.et_shru))));
                 L.e("num "+num);
                 setSettleInfo();
 
@@ -183,6 +196,29 @@ View.OnClickListener listener = new View.OnClickListener() {
     }
 };
 
+   private void requestHttp(String oriderid,String addnum,String color,String weight) {
+        String member = ShareUtils.getString(context,"member","");
+        String url = ConfigUtils.ZhuYuMing+ConfigUtils.XIUGAIGOUWUCHEJIEKOU;
+        OkGo.post(url)
+                .params("member_id",member)
+                .params("orderid",oriderid)
+                .params("color",color)
+                .params("weight",weight)
+                .params("number",addnum)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        L.e("xiugaigouwuche "+s);
+
+                    }
+
+                    @Override
+                    public void onError(Call call, Response response, Exception e) {
+                        super.onError(call, response, e);
+                        Toasts.makeTexts(context,"请求失败"+e + call);
+                    }
+                });
+    }
 
 
 }

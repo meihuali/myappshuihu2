@@ -81,5 +81,6 @@ dependencies {
 
     /*购物车用的这些依赖 有些起始不需要·直接copy的 demo*/
     compile 'com.jakewharton:butterknife:7.0.1'
-
+    //okgo依赖
+    compile 'com.lzy.net:okgo:2.1.4' //okgo网络请求依赖
 }
