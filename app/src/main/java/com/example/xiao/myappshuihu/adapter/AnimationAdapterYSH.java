@@ -31,8 +31,6 @@ public class AnimationAdapterYSH extends BaseQuickAdapter<ShangPinLieBiaoBean.Da
         super(layoutResId, data);
         this.context = context;
     }
-
-
     @Override
     protected void convert(BaseViewHolder helper, ShangPinLieBiaoBean.DataBean item) {
         //给item 上的子控件设置监听 然后在 主activity 里面调用 用adapter 掉setOnItemChildClickListener

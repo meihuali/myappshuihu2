@@ -75,7 +75,7 @@ public class PopupWindowUtils extends BasePopupWindow implements View.OnClickLis
 
     @Override
     public View getClickToDismissView() {
-        return popupView.findViewById(R.id.click_to_dismiss);
+        return popupView.findViewById(R.id.click_to_dismiss );
     }
 
     @Override

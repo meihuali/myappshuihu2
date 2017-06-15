@@ -477,5 +477,10 @@
     <string name="cart_title_0">购物车(0)</string>
     <string name="cart_title">购物车(%s)</string>
     <string name="yanse">颜色</string>
+    <string name="shouhuoren">收货人:</string>
+    <string name="xingming"> 梅华黎</string>
+    <string name="shoujihaoma">17620193389</string>
+    <string name="shouhuodizhi">收货地址:</string>
+    <string name="shouhuoxiangxidizhi">广东省广州市天河区,珠村，盈丰大厦505</string>
 
 </resources>

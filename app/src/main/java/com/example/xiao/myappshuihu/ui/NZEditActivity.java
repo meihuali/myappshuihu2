@@ -131,7 +131,7 @@ public class NZEditActivity extends Base2Activity implements OnClickListener,
 		}
 	}
 
-
+	@Override
 	public void initView() {
 		getIntentExtras();
 		//initData();

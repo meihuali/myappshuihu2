@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="45dp"
+        android:background="@color/tianlan"
+        android:id="@+id/relativeLayout">
+
         <Button
             android:id="@+id/btn_add"
-            android:gravity="center"
-            android:layout_marginRight="10dp"
-            android:textSize="35sp"
-            android:textColor="@color/txt_balck"
-            android:text="+"
-            android:background="@null"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/txt_balck"
+            android:textSize="35sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@drawable/zhujiemian_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout">
+        <com.example.xiao.myappshuihu.view.SlidingArcView
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:background="@drawable/shouye"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
 
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

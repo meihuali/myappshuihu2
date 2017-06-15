@@ -141,7 +141,7 @@ public class ShoppingsAdapterYSH extends BaseQuickAdapter<ShoppingcartlistBean.D
                 String color = item.getColor();
                 String weight = item.getWeight();
 
-              requestHttp(orderid,addnum,color,weight);
+                requestHttp(orderid,addnum,color,weight);
             }
         });
         /*这里是点击item 上的减号去 减少商品件数*/
@@ -151,10 +151,15 @@ public class ShoppingsAdapterYSH extends BaseQuickAdapter<ShoppingcartlistBean.D
                 String num = ShoppingCartBiz.addOrReduceGoodsNum(false, item, ((TextView) (((View) (view.getParent())).findViewById(R.id.et_shru))));
                 L.e("num "+num);
                 setSettleInfo();
+                           /*点击加号 修改 个数然后发给服务器*/
+                String orderid = item.getOrderid();
+                String color = item.getColor();
+                String weight = item.getWeight();
+                requestHttp(orderid,num,color,weight);
 
             }
         });
-            //设置侧滑后点击删除按钮删除该条商品
+        //设置侧滑后点击删除按钮删除该条商品
         helper.getView(R.id.btn_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,23 +185,23 @@ public class ShoppingsAdapterYSH extends BaseQuickAdapter<ShoppingcartlistBean.D
             mChangeListener.onSelectItem(isSelectAll);
         }
     }
-View.OnClickListener listener = new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnSettle:
-                if (ShoppingCartBiz.hasSelectedGoods(list)) {
-                   Toasts.makeTexts(context,"等待开发中···");
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.btnSettle:
+                    if (ShoppingCartBiz.hasSelectedGoods(list)) {
+                        Toasts.makeTexts(context,"等待开发中···");
 
-                } else {
-                    Toasts.makeTexts(context,"请选择商品···");
-                }
-                break;
+                    } else {
+                        Toasts.makeTexts(context,"请选择商品···");
+                    }
+                    break;
+            }
         }
-    }
-};
+    };
 
-   private void requestHttp(String oriderid,String addnum,String color,String weight) {
+    private void requestHttp(String oriderid,String addnum,String color,String weight) {
         String member = ShareUtils.getString(context,"member","");
         String url = ConfigUtils.ZhuYuMing+ConfigUtils.XIUGAIGOUWUCHEJIEKOU;
         OkGo.post(url)

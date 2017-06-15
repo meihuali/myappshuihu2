@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.xiao.myappshuihu.Animation.CustomAnim;
 import com.example.xiao.myappshuihu.entity.LoginBean;
 import com.example.xiao.myappshuihu.fragmengt.ShangCheng;
 import com.example.xiao.myappshuihu.fragmengt.ShouYe;
@@ -20,6 +22,7 @@ import com.example.xiao.myappshuihu.utils.MD5Util;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
+import com.example.xiao.myappshuihu.view.ScreenUtils;
 import com.google.gson.Gson;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
@@ -31,19 +34,21 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     /*声明三个tab栏的 linelayout*/
-    private LinearLayout  llay_00,llay_01,llay_02;
+    private LinearLayout llay_00, llay_01, llay_02;
     /*声明Fragmengt*/
-    private Fragment mtab0,mtab01,mtab02;
+    private Fragment mtab0, mtab01, mtab02;
     /*声明tab栏下面的每一个textview*/
-    private TextView tv_00,tv_01,tv_02;
+    private TextView tv_00, tv_01, tv_02;
     /*声明tab栏下面的 每一张图片Image*/
-    private ImageView image_00,image_01,image_02;
+    private ImageView image_00, image_01, image_02;
     /*声明 模拟登录 的那个 集合 */
     private List<LoginBean> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        ScreenUtils.initScreen(this); //这句是为了首页的那个fragmengt 的屏幕尺寸搞得什么飞机我也看不懂
         setContentView(R.layout.activity_main);
         initView(); //初始化
         setSelect(0); //默认选择第几个开场的tab栏 显示
@@ -53,40 +58,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     /*模仿登录接口*/
     private void initRequest() {
         //传参密码 要加密成 MD5
-       String md5PassWord =  MD5Util.getStringMD5("123456");
-        String url = ConfigUtils.ZhuYuMing+ConfigUtils.LOGIN_SONCESS;
+        String md5PassWord = MD5Util.getStringMD5("123456");
+        String url = ConfigUtils.ZhuYuMing + ConfigUtils.LOGIN_SONCESS;
         HttpParams paresm = new HttpParams();
-        paresm.put("phone","13144743445");
-        paresm.put("password",md5PassWord);
+        paresm.put("phone", "13144743445");
+        paresm.put("password", md5PassWord);
         RxVolley.post(url, paresm, new HttpCallback() {
             @Override
             public void onSuccess(String t) {
                 super.onSuccess(t);
-                L.e("dengluqingqiuchengg "+t);
+                L.e("dengluqingqiuchengg " + t);
                 Gson gson = new Gson();
                 try {
-                    LoginBean lb =  gson.fromJson(t,LoginBean.class);
-                    int status =  lb.getStatus();
+                    LoginBean lb = gson.fromJson(t, LoginBean.class);
+                    int status = lb.getStatus();
                     if (status == 1) {
                         try {
                             LoginBean.DataBean lbdb = lb.getData();
-                            String member =  lbdb.getMember_id();
+                            String member = lbdb.getMember_id();
                     /*保存登录返回的 那个字段 ID*/
-                            ShareUtils.putString(getApplicationContext(),"member",member);
+                            ShareUtils.putString(getApplicationContext(), "member", member);
                         } catch (Exception e) {
-                            Toasts.makeTexts(getApplicationContext(),"解析出错，可能接口问题");
+                            Toasts.makeTexts(getApplicationContext(), "解析出错，可能接口问题");
                         }
 
                     } else {
-                        Toasts.makeTexts(getApplicationContext(),"登录接口有问题");
+                        Toasts.makeTexts(getApplicationContext(), "登录接口有问题");
                     }
 
                 } catch (Exception e) {
-                    Toasts.makeTexts(getApplicationContext(),"登录接口挂了");
+                    Toasts.makeTexts(getApplicationContext(), "登录接口挂了");
                 }
 
             }
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(VolleyError error) {
                 super.onFailure(error);
-                Toasts.makeTexts(getApplicationContext(),"登录请求失败");
+                Toasts.makeTexts(getApplicationContext(), "登录请求失败");
             }
         });
     }
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ft.show(mtab0); //否则说明fragment里面已经有该对象了·就直接让他显示吧
                 }
                 //同时把背景图片设置为亮的图片
-                image_00.setImageResource(R.drawable.shouye_xuanzhong);
+                image_00.setImageResource(R.drawable.shouyexuanzhong);
                 //设置textview字体颜色
                 tv_00.setTextColor(getResources().getColor(R.color.txt_balck));
                 break;
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     ft.show(mtab01);
                 }
-                image_01.setImageResource(R.drawable.shangcheng_xuanzhong);
+                image_01.setImageResource(R.drawable.shangchengxuanzhong);
                 tv_01.setTextColor(getResources().getColor(R.color.txt_balck));
                 break;
             case 2:
@@ -139,12 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     ft.show(mtab02);
                 }
-                image_02.setImageResource(R.drawable.wode_xuanzhong);
+                image_02.setImageResource(R.drawable.wodexuanzhong);
                 tv_02.setTextColor(getResources().getColor(R.color.txt_balck));
                 break;
         }
         ft.commit(); //最后提交一下 到管理器里面
     }
+
     /*隐藏fragment*/
     private void hideFragment(FragmentTransaction ft) {
         if (mtab0 != null) { //如果fragmengt 不等于空 就隐藏他
@@ -182,35 +187,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override   /*点击 下面teab栏的时候 事件*/
     public void onClick(View view) {
         restImage();//当用户点击的时候 首先 将所有的图片都改成灰色
+        //按钮 晃动的 动画
+        CustomAnim ca = new CustomAnim();
         switch (view.getId()) {
             case R.id.llay_00:
                 setSelect(0);
-            break;
+                //下面两句句点击后让按钮晃动 抖动一下
+                ca.setDuration(1000);
+                view.startAnimation(ca);
+                break;
             case R.id.llay_01:
                 setSelect(1);
-            break;
+                //下面两句点击后让按钮晃动 抖动一下
+                ca.setDuration(1000);
+                view.startAnimation(ca);
+                break;
             case R.id.llay_02:
                 setSelect(2);
-            break;
+                //下面两句点击后让按钮晃动 抖动一下
+                ca.setDuration(1000);
+                view.startAnimation(ca);
+                break;
         }
     }
+
     /*当用户点击的时候 首先 将所有的图片都改成灰色*/
     private void restImage() {
-        image_00.setImageResource(R.drawable.shouye_weixuanzhong);
-        image_01.setImageResource(R.drawable.shangcheng_weixuanzhong);
-        image_02.setImageResource(R.drawable.wode_weixuanzhong);
+        image_00.setImageResource(R.drawable.shouyeweixuanzhong);
+        image_01.setImageResource(R.drawable.shanchengweixuanzhong);
+        image_02.setImageResource(R.drawable.wodeweixuanzhong);
     }
 
     /*====================这里是那个养生壶硬件那块需要接受 一个什么几把 APPid 才可以===============================================*/
     private void initGetAPPid() {
         String appid = ToolsGetAppId.getinitAppId(this);
-        String urlsss = ConfigUtils.REGSET_INTIFCES+ConfigUtils.REGSET_HOUZHUI+appid;
+        String urlsss = ConfigUtils.REGSET_INTIFCES + ConfigUtils.REGSET_HOUZHUI + appid;
         new RxVolley.Builder().callback(new HttpCallback() {
             @Override
             public void onSuccess(String t) {
                 super.onSuccess(t);
             }
-        })			.url(urlsss) //接口地址
+        }).url(urlsss) //接口地址
                 //设置缓存时间: 默认是 get 请求 5 分钟, post 请求不缓存
                 .cacheTime(0)
                 //内容参数传递形式，如果不加，默认为 FORM 表单提交，可选项 JSON 内容
@@ -221,4 +238,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .doTask();  //执行请求操作
     }
 
+    //点击 动画效果
+//    public void myAnimation() {
+//        CustomAnim ca = new CustomAnim();
+//        ca.setDuration(1000);
+//        view.startAnimation(ca);
+//    }
 }

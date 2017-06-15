@@ -1,5 +1,6 @@
 package com.example.xiao.myappshuihu.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xiao.myappshuihu.R;
@@ -50,7 +53,7 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
     private ImageView imge_back;
     //假数据 集合
 //    private List<ShangChenLiBiaoBean> list = new ArrayList<>();
-   private List<ShoppingcartlistBean.DataBean> list = new ArrayList<>();
+    private List<ShoppingcartlistBean.DataBean> list = new ArrayList<>();
     private EditText et_shru;
     private TextView tv_add;
     private String types = "1";
@@ -73,11 +76,12 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
 
 
     private ImageView ivCheckGood;
-//    private List<ShangChenLiBiaoBean> litss;
+    //    private List<ShangChenLiBiaoBean> litss;
     private ShoppingcartlistBean.DataBean  gwcb;
     ImageView ivSelectAll;
     //购物车清单 集合
     private List<ShoppingcartlistBean> mlistshoppingcat;
+    private View headerView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +92,6 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
         initView();
     }
 
-
     /*控件初始化*/
     private void initView() {
         ivSelectAll = (ImageView) findViewById(R.id.ivSelectAll);
@@ -98,11 +101,11 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
 //        tv_moneyes = (TextView) findViewById(R.id.tv_moneyes);
         imge_back = (ImageView) findViewById(R.id.imge_back);
         imge_back.setOnClickListener(this);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         //设置 mRecyclerView 的管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         /*设置适配器*/
         shoppingsAdapter = new ShoppingsAdapterYSH(R.layout.activity_shoppings_item, list, getApplicationContext());
         //这个是一个适配里面的接口回调
@@ -195,7 +198,7 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
                     ShoppingcartlistBean shoping =  gson.fromJson(t, ShoppingcartlistBean.class);
                     int status = shoping.getStatus();
                     if (status == 1) {
-                       List<ShoppingcartlistBean.DataBean> shopingbenData =  shoping.getData();
+                        List<ShoppingcartlistBean.DataBean> shopingbenData =  shoping.getData();
                         list.addAll(shopingbenData);
                         shoppingsAdapter.notifyDataSetChanged();
                     }
