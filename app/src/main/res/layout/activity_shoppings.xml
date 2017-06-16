@@ -116,8 +116,9 @@
         android:id="@+id/rlBottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:layout_width="match_parent"

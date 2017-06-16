@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView image_00, image_01, image_02;
     /*声明 模拟登录 的那个 集合 */
     private List<LoginBean> list = new ArrayList<>();
+    //缩放动画
+    private Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //同时把背景图片设置为亮的图片
                 image_00.setImageResource(R.drawable.shouyexuanzhong);
                 //设置textview字体颜色
-                tv_00.setTextColor(getResources().getColor(R.color.txt_balck));
+                tv_00.setTextColor(getResources().getColor(R.color.but_color1));
                 break;
             case 1:
                 if (mtab01 == null) {
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ft.show(mtab01);
                 }
                 image_01.setImageResource(R.drawable.shangchengxuanzhong);
-                tv_01.setTextColor(getResources().getColor(R.color.txt_balck));
+                tv_01.setTextColor(getResources().getColor(R.color.but_color1));
                 break;
             case 2:
                 if (mtab02 == null) {
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ft.show(mtab02);
                 }
                 image_02.setImageResource(R.drawable.wodexuanzhong);
-                tv_02.setTextColor(getResources().getColor(R.color.txt_balck));
+                tv_02.setTextColor(getResources().getColor(R.color.but_color1));
                 break;
         }
         ft.commit(); //最后提交一下 到管理器里面
@@ -154,15 +158,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void hideFragment(FragmentTransaction ft) {
         if (mtab0 != null) { //如果fragmengt 不等于空 就隐藏他
             ft.hide(mtab0); //隐藏
-            tv_00.setTextColor(getResources().getColor(R.color.but_color1)); //隐藏以后吧字体颜色换成自己想要的
+            tv_00.setTextColor(getResources().getColor(R.color.txt_balck)); //隐藏以后吧字体颜色换成自己想要的
         }
         if (mtab01 != null) {
             ft.hide(mtab01);
-            tv_01.setTextColor(getResources().getColor(R.color.but_color1));
+            tv_01.setTextColor(getResources().getColor(R.color.txt_balck));
         }
         if (mtab02 != null) {
             ft.hide(mtab02);
-            tv_02.setTextColor(getResources().getColor(R.color.but_color1));
+            tv_02.setTextColor(getResources().getColor(R.color.txt_balck));
         }
     }
 
@@ -187,26 +191,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override   /*点击 下面teab栏的时候 事件*/
     public void onClick(View view) {
         restImage();//当用户点击的时候 首先 将所有的图片都改成灰色
-        //按钮 晃动的 动画
-        CustomAnim ca = new CustomAnim();
+        animation= AnimationUtils.loadAnimation(this, R.anim.suofangdonghua);
         switch (view.getId()) {
             case R.id.llay_00:
                 setSelect(0);
-                //下面两句句点击后让按钮晃动 抖动一下
-                ca.setDuration(1000);
-                view.startAnimation(ca);
+                llay_00.startAnimation(animation);
                 break;
             case R.id.llay_01:
                 setSelect(1);
-                //下面两句点击后让按钮晃动 抖动一下
-                ca.setDuration(1000);
-                view.startAnimation(ca);
+                llay_01.startAnimation(animation);
                 break;
             case R.id.llay_02:
                 setSelect(2);
-                //下面两句点击后让按钮晃动 抖动一下
-                ca.setDuration(1000);
-                view.startAnimation(ca);
+                llay_02.startAnimation(animation);
                 break;
         }
     }
@@ -238,10 +235,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .doTask();  //执行请求操作
     }
 
-    //点击 动画效果
-//    public void myAnimation() {
-//        CustomAnim ca = new CustomAnim();
-//        ca.setDuration(1000);
-//        view.startAnimation(ca);
-//    }
+
 }

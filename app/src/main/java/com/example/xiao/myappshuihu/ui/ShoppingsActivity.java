@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.adapter.ShoppingsAdapterYSH;
+import com.example.xiao.myappshuihu.dialog.PopupWindowCenter;
 import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShoppingcartlistBean;
 import com.example.xiao.myappshuihu.sqlite.MyGreenDaoUtils;
@@ -68,7 +69,7 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
     private ShangChenLiBiaoBean sclbb;
     private String initTypes = "1";
     private Button btn_jiesuan;
-    // @Bind(R.id.btnSettle)
+
     TextView btnSettle;
     TextView tvCountMoney;
     @Bind(R.id.tvTitle)
@@ -87,6 +88,7 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppings);
         btnSettle = (TextView) findViewById(R.id.btnSettle);
+        btnSettle.setOnClickListener(this);
         ivSelectAll=(ImageView)findViewById(R.id.ivSelectAll);
         tvCountMoney = (TextView) findViewById(R.id.tvCountMoney);
         initView();
@@ -138,11 +140,11 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
         });
 
         //通过监听器关联Activity和Adapter的关系，解耦；
-        View.OnClickListener listener = shoppingsAdapter.getAdapterListener();
-        if (listener != null) {
-            //结算时，一般是需要将数据传给订单界面的
-            btnSettle.setOnClickListener(shoppingsAdapter.getAdapterListener());
-        }
+//        View.OnClickListener listener = shoppingsAdapter.getAdapterListener();
+//        if (listener != null) {
+//            //结算时，一般是需要将数据传给订单界面的
+//            btnSettle.setOnClickListener(shoppingsAdapter.getAdapterListener());
+//        }
         mRecyclerView.setAdapter(shoppingsAdapter);
 
 //        这一句是开启 item 动画
@@ -261,6 +263,15 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
                 }
                 shoppingsAdapter.notifyDataSetChanged();
                 operateTotalMoney();
+                break;
+            case R.id.btnSettle:
+                if (ShoppingCartBiz.hasSelectedGoods(list)) {
+
+                    PopupWindowCenter pwc = new PopupWindowCenter(this);
+                    pwc.showPopupWindow();
+                } else {
+                    Toasts.makeTexts(getApplicationContext(),"请选择商品···");
+                }
                 break;
         }
     }

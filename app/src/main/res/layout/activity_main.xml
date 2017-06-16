@@ -32,7 +32,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="65dp">
 
         <!--第1个tab-->
         <LinearLayout
@@ -42,13 +42,14 @@
             android:layout_weight="1"
             android:layout_height="fill_parent">
             <ImageView
+                android:layout_marginTop="3dp"
                 android:src="@drawable/shouye_xuanzhong"
                 android:id="@+id/id_img00"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
-                android:textColor="@color/txt_balck"
+                android:textColor="@color/but_color1"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:text="@string/shouye"
@@ -66,13 +67,14 @@
             android:layout_weight="1"
             android:layout_height="fill_parent">
             <ImageView
+                android:layout_marginTop="3dp"
                 android:src="@drawable/shangcheng_weixuanzhong"
                 android:id="@+id/id_img01"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
-                android:textColor="@color/but_color1"
+                android:textColor="@color/txt_balck"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:text="@string/shangcheng"
@@ -90,13 +92,14 @@
             android:layout_weight="1"
             android:layout_height="fill_parent">
             <ImageView
+                android:layout_marginTop="3dp"
                 android:src="@drawable/wode_weixuanzhong"
                 android:id="@+id/id_img02"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
-                android:textColor="@color/but_color1"
+                android:textColor="@color/txt_balck"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:text="@string/wode"
