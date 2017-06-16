@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.xiao.myappshuihu.R;
+import com.example.xiao.myappshuihu.ui.PersonalInformationActivity;
 import com.example.xiao.myappshuihu.ui.ShoppingsActivity;
 
 
@@ -24,6 +25,8 @@ import com.example.xiao.myappshuihu.ui.ShoppingsActivity;
  */
 public class WoDe extends Fragment implements View.OnClickListener {
     private TextView tv_shpoing;
+    private TextView tv_geren;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class WoDe extends Fragment implements View.OnClickListener {
     }
         /* 初始化控件*/
     private void initView(View view) {
+        tv_geren = (TextView) view.findViewById(R.id.tv_geren);
+        tv_geren.setOnClickListener(this);
         tv_shpoing = (TextView) view.findViewById(R.id.tv_shpoing);
         tv_shpoing.setOnClickListener(this);
     }
@@ -52,6 +57,9 @@ public class WoDe extends Fragment implements View.OnClickListener {
 //                intent.putExtra("styls",styls);
 //                startActivity(intent);
             break;
+            case R.id.tv_geren:
+                startActivity(new Intent(getActivity(), PersonalInformationActivity.class));
+                break;
         }
     }
 }

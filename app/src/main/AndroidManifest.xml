@@ -41,7 +41,8 @@
       <!--  <activity android:name="com.example.zerovoid.shoppingcart.activity.ShoppingCartActivity"/>-->
             <!--添加设备 界面-->
         <activity android:name=".ui.MachineActivity"/>
-
+        <!--个人信息界面-->
+        <activity android:name=".ui.PersonalInformationActivity"/>
     </application>
 
     <!--banner图片轮播用到的权限-->
