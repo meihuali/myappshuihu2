@@ -14,7 +14,7 @@ import com.mylhyl.zxing.scanner.decode.QRDecode;
 
 
 /**
- * 单击解析图片
+ * 单击解析图片 12
  */
 public class DeCodeActivity extends BasicScannerActivity {
     @Override
