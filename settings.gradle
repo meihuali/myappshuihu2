@@ -1,1 +1,1 @@
-include ':app', ':libzxing', ':flowlayout'
+include ':app', ':flowlayout'

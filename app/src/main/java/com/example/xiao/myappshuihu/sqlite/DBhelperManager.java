@@ -1,18 +1,25 @@
 package com.example.xiao.myappshuihu.sqlite;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 
 import com.example.xiao.myappshuihu.R;
+import com.nostra13.universalimageloader.utils.L;
 
 
 /**
@@ -53,6 +60,7 @@ public class DBhelperManager {
     private static final String ZDY_TIME1             = "ZDY_TIME1";
     private static final String ZDY_ISOPEN            = "ZDY_ISOPEN";
     private static final String ZDY_ISZF              = "ZDY_ISZF";
+    private static final String ZDY_IMAGE              = "ZDY_IMAGE";
 
     private static final String DATABASE_CREATE = "create table " + DATABASE_TABLE +
             " (key_id integer default '1' not null primary key autoincrement, "
@@ -64,7 +72,9 @@ public class DBhelperManager {
             + "ZDY_TIME text not null,"
             + "ZDY_TIME1 text not null,"
             + "ZDY_ISZF text not null,"
-            + "ZDY_ISOPEN integer )" ;
+            + "ZDY_ISOPEN integer ,"
+            + "ZDY_IMAGE text  not null)" ;
+
 
 //	"create table "+tb_phoneNumber+" (id integer default '1' not null primary key autoincrement,phoneNumber,addTime,type text  not null)";
 
@@ -97,17 +107,20 @@ public class DBhelperManager {
             instance = new DBhelperManager(context);
         return instance;
     }
-
+    /*
+    * 这里应该就是取数据了·
+    * */
     public synchronized List<ZDYData> getAlermList(int state, String machineid) {
         List<ZDYData> list = new ArrayList<DBhelperManager.ZDYData>();
-
         Cursor cursor = null;
         SQLiteDatabase db = null;
+        final String machineds = machineid;
         try {
+            L.e("设备号啊aa " +machineds);
             db = open();
             cursor = getAll(machineid);
-            for (cursor.moveToFirst(); !(cursor.isAfterLast()); cursor
-                    .moveToNext()) {
+            //  目前我调试的是 这for循环语句 不成立· 导致 直接 catch掉了 就是这个for循环
+            while(cursor !=null && cursor.moveToNext()){
                 ZDYData data = new ZDYData();
                 data.ZDY_ID = cursor.getString(cursor.getColumnIndex(ZDY_ID));
                 data.MACHINE_ID = cursor.getString(cursor.getColumnIndex(MACHINE_ID));
@@ -118,6 +131,7 @@ public class DBhelperManager {
                 data.ZDY_TIME1 = cursor.getString(cursor.getColumnIndex(ZDY_TIME1));
                 data.ZDY_ISOPEN = cursor.getInt(cursor.getColumnIndex(ZDY_ISOPEN));
                 data.ZDY_ISZF = cursor.getString(cursor.getColumnIndex(ZDY_ISZF));
+                data.ZDY_IMAGE = cursor.getString(cursor.getColumnIndex(ZDY_IMAGE));
                 if(state == 1){
                     if(data.ZDY_ISOPEN == state)
                         list.add(data);
@@ -125,6 +139,25 @@ public class DBhelperManager {
                     list.add(data);
                 }
             }
+          /*  for (cursor.moveToFirst(); !(cursor.isAfterLast()); cursor.moveToNext()) {
+                ZDYData data = new ZDYData();
+                data.ZDY_ID = cursor.getString(cursor.getColumnIndex(ZDY_ID));
+                data.MACHINE_ID = cursor.getString(cursor.getColumnIndex(MACHINE_ID));
+                data.ZDY_NAME = cursor.getString(cursor.getColumnIndex(ZDY_NAME));
+                data.ZDY_ISDE = cursor.getInt(cursor.getColumnIndex(ZDY_ISDE));
+                data.ZDY_SW = cursor.getString(cursor.getColumnIndex(ZDY_SW));
+                data.ZDY_TIME = cursor.getString(cursor.getColumnIndex(ZDY_TIME));
+                data.ZDY_TIME1 = cursor.getString(cursor.getColumnIndex(ZDY_TIME1));
+                data.ZDY_ISOPEN = cursor.getInt(cursor.getColumnIndex(ZDY_ISOPEN));
+                data.ZDY_ISZF = cursor.getString(cursor.getColumnIndex(ZDY_ISZF));
+                data.ZDY_IMAGE = cursor.getString(cursor.getColumnIndex(ZDY_IMAGE));
+                if(state == 1){
+                    if(data.ZDY_ISOPEN == state)
+                        list.add(data);
+                }else{
+                    list.add(data);
+                }*/
+           // }
         } catch (Exception e) {
             // TODO: handle exceptionn
             return null;
@@ -187,7 +220,11 @@ public class DBhelperManager {
      */
     public synchronized ZDYData inquiry(String app_id){
         ZDYData data = null;
-        try{db = open();}catch (Exception e) {e.printStackTrace();}
+        try{
+            db = open();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         Cursor cursor = db.query(
                 DATABASE_TABLE,
                 null,
@@ -249,9 +286,11 @@ public class DBhelperManager {
             return;
         }
         Log.e("insert", "insert-------"+data);
-        try{db = open();
+        try{
+            db = open();
         }catch (Exception e)
-        {e.printStackTrace();
+        {
+            e.printStackTrace();
         }
         ContentValues initialValues = new ContentValues();
         initialValues.put(ZDY_ID, data.ZDY_ID);
@@ -263,7 +302,8 @@ public class DBhelperManager {
         initialValues.put(ZDY_TIME1, data.ZDY_TIME1);
         initialValues.put(ZDY_ISOPEN, data.ZDY_ISOPEN);
         initialValues.put(ZDY_ISZF, data.ZDY_ISZF);
-       long  ss =  db.insert(DATABASE_TABLE, null, initialValues);
+        initialValues.put(ZDY_IMAGE, data.ZDY_IMAGE);
+        long  ss =  db.insert(DATABASE_TABLE, null, initialValues);
         db.close();
     }
 
@@ -319,9 +359,8 @@ public class DBhelperManager {
             data.ZDY_TIME = "0";
             data.ZDY_TIME1 = "0";
             data.ZDY_ISZF = "0";
+            data.ZDY_IMAGE = String.valueOf(R.drawable.yangshengtang2);
             DBhelperManager.getInstance(context).insert(data);
-
-
 
             ZDYData data1 = new ZDYData();
             data1.MACHINE_ID=machineid;
@@ -333,6 +372,7 @@ public class DBhelperManager {
             data1.ZDY_TIME = "0";
             data1.ZDY_TIME1 = "0";
             data1.ZDY_ISZF = "0";
+            data1.ZDY_IMAGE = String.valueOf(R.drawable.huacha2);
             DBhelperManager.getInstance(context).insert(data1);
 
 
@@ -346,6 +386,7 @@ public class DBhelperManager {
             data2.ZDY_TIME = "0";
             data2.ZDY_TIME1 = "0";
             data2.ZDY_ISZF = "0";
+            data2.ZDY_IMAGE = String.valueOf(R.drawable.zhufei2);
             DBhelperManager.getInstance(context).insert(data2);
 
 
@@ -359,7 +400,21 @@ public class DBhelperManager {
             data3.ZDY_TIME = "0";
             data3.ZDY_TIME1 = "0";
             data3.ZDY_ISZF = "0";
+            data3.ZDY_IMAGE =String.valueOf(R.drawable.shuiguicha2);
             DBhelperManager.getInstance(context).insert(data3);
+
+            ZDYData data4 = new ZDYData();
+            data4.MACHINE_ID=machineid;
+            data4.ZDY_ID = (System.currentTimeMillis() + "");
+            data4.ZDY_ISDE = 0;
+            data4.ZDY_ISOPEN = 1;
+            data4.ZDY_NAME =context.getString(R.string.juhuacha);
+            data4.ZDY_SW = "45°c";
+            data4.ZDY_TIME = "0";
+            data4.ZDY_TIME1 = "0";
+            data4.ZDY_ISZF = "0";
+            data4.ZDY_IMAGE = String.valueOf(R.drawable.i5);
+            DBhelperManager.getInstance(context).insert(data4);
         }catch (DBNullException e) {
             // TODO 自动生成的 catch 块
             e.printStackTrace();
@@ -369,6 +424,7 @@ public class DBhelperManager {
 
     public Cursor getAll(String machineid) {
         //Cursor cur =db.query(DATABASE_TABLE,"MACHINE_ID=?",new String[]{machineid},null,null,null,null);MACHINE_ID quickdial
+        //这个查询语句有问题
         Cursor c = db.rawQuery("SELECT * FROM quickdial where MACHINE_ID = ? ",new String[]{machineid});
         return c;
     }
@@ -398,6 +454,8 @@ public class DBhelperManager {
         public int ZDY_ISOPEN;
         /******自定义是否开启煮沸模式******/
         public String ZDY_ISZF="0";
+        /*==================加入多一张图片字段 弱水三千==========*/
+        public String ZDY_IMAGE;
 
     }
 

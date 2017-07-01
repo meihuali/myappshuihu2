@@ -37,6 +37,7 @@ public class ListDialog extends Dialog implements View.OnClickListener,OnItemCli
 		this.handler = handler;
 	}
 
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_dialog);

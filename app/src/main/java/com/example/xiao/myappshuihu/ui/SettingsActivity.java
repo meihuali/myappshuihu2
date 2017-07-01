@@ -35,6 +35,7 @@ import com.example.xiao.myappshuihu.sqlite.MyGreenDao_settings_item_1_Utils;
 import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
 import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
+import com.example.xiao.myappshuihu.utils.StringUtil;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.utils.WifiTools;
 import com.example.xiao.myappshuihu.view.ListViewCompat;
@@ -69,7 +70,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         initView();
-        initData();
     }
 
     /*初始化*/
@@ -84,15 +84,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void initData() {
 
 
-    }
-
-    /*遍历数据*/
-    private void initGetData() {
-
-    }
 
 
     private Handler hanlder = new Handler() {
@@ -106,13 +99,18 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         /*程序通过onsart 周期 进来·先 判断 先从数据库去取
         * 数据，取得时候给他一个水壶设备ID号 然后如果取出来是空的
         *  就直接 往里面默认添加 4条数据 例如煮沸 花茶 咖啡 等等之类的·
+        *  设备号：  01020101411608666666
         * */
         machineid = ShareUtils.getString(getApplicationContext(),"micID","");
-        mList = DBhelperManager.getInstance(this).getAlermList(0,machineid);
-        if(mList.size()==0 || mList==null){
+        L.e("进来的时候 "+machineid);
+        if (StringUtil.isEmpty(machineid)) {
+            machineid = "machineid";
+        }
+        mList = DBhelperManager.getInstance(this).getAlermList(1, machineid);
+        if (mList.size() <= 0) {
             DBhelperManager.getInstance(this).addDefault(machineid);
-            mList = DBhelperManager.getInstance(this).getAlermList(1,machineid);
-           NZ_DBhelperManager.getInstance(this).addDefault(mList,machineid);
+            mList = DBhelperManager.getInstance(this).getAlermList(1, machineid);
+            NZ_DBhelperManager.getInstance(this).addDefault(mList, machineid);
         }
 
         /*
@@ -129,6 +127,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initTitle() {
+        //这边的数据显示不出来了·
         flowLayout.removeAllViews();
         List<DBhelperManager.ZDYData> mList = DBhelperManager.getInstance(this).getAlermList(1,machineid);
         int length = mList.size();

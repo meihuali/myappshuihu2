@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.xiao.myappshuihu.R;
+import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +30,10 @@ import java.util.List;
 
 public class SlidingArcView extends ViewGroup {
     public static String TAG = "QTView";
-    private String titles[];
-    private int src[];
+//    private String titles[];
+//    private int src[];
     private List<SignView> views = new ArrayList<>();
-
+    private List<DBhelperManager.ZDYData> mList = new ArrayList<>();
     //Bitmap bgBitmap;
 
     public SlidingArcView(Context context) {
@@ -57,17 +58,17 @@ public class SlidingArcView extends ViewGroup {
         setMeasuredDimension(mSize, mSize);
     }
 
-    public void setData(int[] src, String[] titles) {
-        this.src = src;
-        this.titles = titles;
-        for (int i = 0, len = src.length; i < len; i++) {
+    public void setData(List<DBhelperManager.ZDYData> mList) {
+        this.mList = mList;
+        for (int i = 0; i < mList.size(); i++) {
 //            View v = new View(getContext());
             TextView v = new TextView(getContext());
             v.setGravity(Gravity.CENTER);
             v.setWidth(250);
             v.setHeight(250);
-            v.setCompoundDrawablesWithIntrinsicBounds(0, src[i], 0, 0);
-            v.setText(titles[i]);
+            v.setTextColor(getResources().getColor(R.color.white));
+            v.setCompoundDrawablesWithIntrinsicBounds(0, Integer.parseInt(mList.get(i).ZDY_IMAGE), 0, 0);
+            v.setText(mList.get(i).ZDY_NAME);
             SignView signView = new SignView(v, i);
             views.add(signView);
             this.addView(v);
@@ -366,7 +367,6 @@ public class SlidingArcView extends ViewGroup {
     private class SignView {
         private int indexInScreen;//在屏幕中的位置
         private View view;
-        private String title;
         private int centX;//view的中心点坐标
         private int centY;
         private int index;
@@ -380,11 +380,10 @@ public class SlidingArcView extends ViewGroup {
         public SignView(View v, final int index) {
             this.index = index;
             this.view = v;
-            this.title = titles[index];
             if (index == 0) {
                 leftView = this;
             }
-            if (index == src.length - 1) {
+            if (index == mList.size() - 1) {
                 rightView = this;
             }
             if (index == 2) {

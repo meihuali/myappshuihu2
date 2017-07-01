@@ -89,6 +89,9 @@ public class ZiDingYiBianJiActivity extends Base2Activity implements View.OnClic
                             // ========注释
                             data.ZDY_SW = drawView.getTemp() + "°c";
                             data.MACHINE_ID = mciID;
+//                            //这里保存·有没有？
+                            data.ZDY_IMAGE = String.valueOf(R.drawable.i5);
+                            data.ZDY_ISOPEN = 1;
                             if (Switch2.isChecked()) {
                                 data.ZDY_TIME =getIntString(zdy_txt_layout_03.getText().toString()) ;
                             } else {

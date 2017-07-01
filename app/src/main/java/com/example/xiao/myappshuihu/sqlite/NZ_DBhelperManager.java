@@ -15,9 +15,9 @@ import java.util.List;
 
 /**
  * 闹钟相关的数据管理类
- * 
+ *
  * @author Administrator
- * 
+ *
  */
 public class NZ_DBhelperManager {
 	/**
@@ -71,18 +71,18 @@ public class NZ_DBhelperManager {
 	// "create table "+tb_phoneNumber+" (id integer default '1' not null primary key autoincrement,phoneNumber,addTime,type text  not null)";
 
 	/**
-     * 
-     */
+	 *
+	 */
 	private final Context context;
 
 	/**
-     * 
-     */
+	 *
+	 */
 	private DatabaseHelper DBHelper;
 
 	/**
-     * 
-     */
+	 *
+	 */
 	private SQLiteDatabase db;
 	/**
 	 * 单例
@@ -176,7 +176,7 @@ public class NZ_DBhelperManager {
 
 	/**
 	 * 打开数据库
-	 * 
+	 *
 	 * @return
 	 * @throws SQLException
 	 */
@@ -194,7 +194,7 @@ public class NZ_DBhelperManager {
 
 	/**
 	 * 根据APP_ID 查询对应的数据
-	 * 
+	 *
 	 * @param
 	 * @return
 	 */
@@ -238,7 +238,7 @@ public class NZ_DBhelperManager {
 
 	/**
 	 * 向数据库中插入数据
-	 * 
+	 *
 	 * @throws DBNullException
 	 */
 
@@ -412,8 +412,8 @@ public class NZ_DBhelperManager {
 		return cur;
 	}
 	public void addDefault(List<DBhelperManager.ZDYData> mList, String machineid){
-		String[] timeString=new String[]{"07:00","12:00","17:00","19:00",};
-		for (int i=0; i<mList.size();i++ ) {
+		String[] timeString=new String[]{"07:00","12:00","17:00","19:00","21:09"};
+		for (int i=0; i<mList.size()-1;i++ ) {
 			NZYData data=new NZYData();
 			data.NZ_ID = System.currentTimeMillis() + "";
 			data.NZ_ZDYID = mList.get(i).ZDY_ID;

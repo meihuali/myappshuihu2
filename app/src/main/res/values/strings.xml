@@ -237,6 +237,7 @@
     <string name="stop_notificate">结束提醒</string>
     <string name="short_of_water_remaind">缺水提醒</string>
     <string name="milk">牛奶</string>
+    <string name="juhuacha">菊花茶</string>
     <string name="boil_then_cooldown">煮沸冷却到设定温度</string>
     <string name="lastmonth_history_record">上月使用情况</string>
     <string name="daily_use_time">平均每天使用次数</string>
@@ -496,5 +497,7 @@
    <string name="xingbie2">男</string>
    <string name="gouwujilu">购物记录</string>
    <string name="shouhuodizhi2">收货地址</string>
+   <string name="sibaiyuan">400元</string>
+
 
 </resources>

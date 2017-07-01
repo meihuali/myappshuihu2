@@ -1,8 +1,12 @@
 package com.example.xiao.myappshuihu.dialog;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -11,6 +15,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.example.xiao.myappshuihu.R;
+import com.example.xiao.myappshuihu.appliction.BaseAPPliction;
+import com.example.xiao.myappshuihu.saoyisao.ScannerActivity;
 import com.example.xiao.myappshuihu.ui.AddOldInfoActivity;
 
 import com.example.xiao.myappshuihu.ui.LiShiJiLuAcativity;
@@ -29,9 +35,13 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
     private TextView tx1;
     private TextView tx2;
     private TextView tx3;
+    public Activity activity;
+    // 扫一扫相关 颜色  如果不赋值的话· 扫描上下滚动的就是绿色这里默认 赋值为 支付宝 那种网格的
+    private int laserMode = ScannerActivity.EXTRA_LASER_LINE_MODE_1;
 
-    public PopupWindowRigth(Activity context) {
-        super(context, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    public PopupWindowRigth(Activity activity) {
+        super(activity, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.activity = activity;
         findViewById(R.id.tx_1).setOnClickListener(this);
         findViewById(R.id.tx_2).setOnClickListener(this);
         findViewById(R.id.tx_3).setOnClickListener(this);
@@ -91,9 +101,10 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
                 dismiss();
                 break;
             case R.id.tx_3:
-                Toasts.makeTexts(getContext(), "click tx_3");
-                //启动一个activity 打开二维码扫描
+                Toasts.makeTexts(getContext(), "扫描");
+//                //启动一个activity 打开二维码扫描
                 getContext().startActivity(new Intent(getContext(),SaoYiSaoActivity.class));
+
                 break;
             case R.id.tx_4:
                 // 历史记录
@@ -109,6 +120,8 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
                 break;
         }
     }
+
+
 
 
 }

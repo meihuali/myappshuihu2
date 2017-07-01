@@ -235,8 +235,10 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
                 }
             }
         }
+        //获取用户勾选后的 金额
         String title = String.format(getResources().getString(R.string.count_money), money+"");
         tvCountMoney.setText(title);
+        //获取用户勾选的个数
         String moneyss = String.format(getResources().getString(R.string.count_goods), number+"");
         btnSettle.setText(moneyss);
     }
@@ -267,6 +269,7 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
             case R.id.btnSettle:
                 if (ShoppingCartBiz.hasSelectedGoods(list)) {
 
+                    //用户点击
                     PopupWindowCenter pwc = new PopupWindowCenter(this);
                     pwc.showPopupWindow();
                 } else {
