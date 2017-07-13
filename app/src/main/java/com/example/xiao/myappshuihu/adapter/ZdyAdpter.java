@@ -14,27 +14,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.example.anonymous.greendao.model.ZDYDataModel;
 import com.example.xiao.myappshuihu.R;
-import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
+import com.example.xiao.myappshuihu.entity.ZDYData;
 import com.example.xiao.myappshuihu.ui.ZiDingYiBianJiActivity;
 import com.example.xiao.myappshuihu.view.MessageItem;
 import com.example.xiao.myappshuihu.view.SlideView;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideView.OnSlideListener {
 
 	public class Items extends MessageItem {
-		DBhelperManager.ZDYData item;
+		ZDYData item;
 	}
 	private List<Items> listData = new ArrayList<Items>();
 	
 	private SlideView mLastSlideViewWithStatusOn;
 	
 	
-	private List<DBhelperManager.ZDYData> mDataList;
+	private List<ZDYData> mDataList;
 
 	private Context context;
 
@@ -45,7 +47,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 		this.handler = handler;
 	}
 
-	public ZdyAdpter(Context context, List<DBhelperManager.ZDYData> dataList) {
+	public ZdyAdpter(Context context, List<ZDYData> dataList) {
 		mDataList = dataList;
 		this.context = context;
 		inf = LayoutInflater.from(context);
@@ -56,7 +58,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 		}
 	}
 	
-	public void addItemData(DBhelperManager.ZDYData data){
+	public void addItemData(ZDYData data){
 		mDataList.add(data);
 		Items itemts = new Items();
 		itemts.item = data;
@@ -112,7 +114,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 			Items item = listData.get(index);
 			item.slideView = sview;
 			item.slideView.reset();
-			final DBhelperManager.ZDYData bean = listData.get(index).item;
+			final ZDYData bean = listData.get(index).item;
 			if(index == 0){
 				sview.setIsupdata(true);
 			}
@@ -125,7 +127,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 						// TODO 自动生成的方法存根
 						if(bean.ZDY_ISDE == 1 || index == 0)
 							return;
-						DBhelperManager.getInstance(context).delete(bean.ZDY_ID);
+						ZDYDataModel.getInstance().delete(bean.ZDY_ID);
 						listData.remove(listData.get(index));
 						notifyDataSetInvalidated();
 						if(handler != null){
@@ -148,7 +150,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 							bean.ZDY_ISOPEN = 0;
 							v.setBackgroundResource(R.drawable.r2);
 						}
-						DBhelperManager.getInstance(context).update(bean);
+						ZDYDataModel.getInstance().update(bean);
 						if(handler != null){
 							handler.sendEmptyMessage(100);
 						}
@@ -219,10 +221,10 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 			mLastSlideViewWithStatusOn.shrink();
 			return;
 		}
-		final DBhelperManager.ZDYData bean = listData.get(position).item;
+		final ZDYData bean = listData.get(position).item;
 		try {
 		Intent intent = new Intent(context,ZiDingYiBianJiActivity.class);
-		intent.putExtra("data",bean);
+		intent.putExtra("data", (Serializable) bean);
 		context.startActivity(intent);
 		} catch (Exception e) {
 		// TODO: handle exception

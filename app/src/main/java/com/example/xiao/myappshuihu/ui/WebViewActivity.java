@@ -1,5 +1,6 @@
 package com.example.xiao.myappshuihu.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -21,6 +22,8 @@ import android.widget.RelativeLayout;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.dialog.PopupWindowBottonShoping;
 import com.example.xiao.myappshuihu.dialog.PopupWindowUtils;
+import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
+import com.example.xiao.myappshuihu.utils.ToastUtil;
 
 /**
  * 项目名：MyAppShuiHu
@@ -35,8 +38,11 @@ public class WebViewActivity extends AppCompatActivity implements View.OnClickLi
     private ProgressBar mProgressBar;
     private String url;
     private ImageView back;
-    private RelativeLayout llay_popuowindow;
+    public RelativeLayout llay_popuowindow;
     private Button btn_goumai;
+    public String money,shangpingName;
+    private String imges;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +50,21 @@ public class WebViewActivity extends AppCompatActivity implements View.OnClickLi
         initView();
 
     }
+
     /*初始化控件*/
     private void initView() {
-     /*   llay_popuowindow = (RelativeLayout) findViewById(R.id.llay_popuowindow);
-        llay_popuowindow.setOnClickListener(this);*/
-        btn_goumai = (Button) findViewById(R.id.btn_goumai);
+        Intent intent3 =  getIntent();
+        //获取上一个界面传递过来的 网页 地址
+        final String weburl = intent3.getStringExtra("weburl");
+        //获取上一个界面传递过来的商品图片
+          imges = intent3.getStringExtra("shangpingIMG");
+
+        btn_goumai = (Button) findViewById(R.id.btn_goumaiss);
         btn_goumai.setOnClickListener(this);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
-        mWebView=(WebView) findViewById(R.id.webview1);
-        mProgressBar=(ProgressBar) findViewById(R.id.progressBar1);
+        mWebView = (WebView) findViewById(R.id.webview1);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
         //进行加载网页的逻辑
         url = "http://h5.m.taobao.com/awp/core/detail.htm?id=531287098468";
@@ -65,19 +76,20 @@ public class WebViewActivity extends AppCompatActivity implements View.OnClickLi
         //接口回调
         mWebView.setWebChromeClient(new WebViewClient());
         //加载网页
-        mWebView.loadUrl(url);
-
+        mWebView.loadUrl(weburl);
 
 
         //本地显示
-        mWebView.setWebViewClient(new android.webkit.WebViewClient(){
+        mWebView.setWebViewClient(new android.webkit.WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(url);
+                view.loadUrl(weburl);
                 //我接受这个事件
                 return true;
             }
         });
+
+
     }
 
     @Override
@@ -86,21 +98,28 @@ public class WebViewActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.back:
                 finish();
                 break;
-            case R.id.btn_goumai:
-                PopupWindowBottonShoping pwu = new PopupWindowBottonShoping(this);
-                pwu.showPopupWindow();
-            break;
+            case R.id.btn_goumaiss:
+                //从第一个商品列表 获取传递过来的对象
+                Intent intent = getIntent();
+                ShangPinLieBiaoBean.DataBean splb1  = (ShangPinLieBiaoBean.DataBean) intent.getSerializableExtra("shangpingduixiang");
+                //然后把 该对象 传递给 另外一个购买界面
+                Intent intent1  =new Intent(getApplicationContext(),LiGouMaiAcitivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("shangpingduixiangWeb",splb1);
+                intent1.putExtras(bundle);
+                //传递商品图片 给立即购买的界面
+                intent1.putExtra("imges",imges);
+                startActivity(intent1);
+                break;
         }
     }
 
-    public class WebViewClient extends WebChromeClient{
-
+    public class WebViewClient extends WebChromeClient {
         //进度变化的监听
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             if (newProgress == 100) {
                 mProgressBar.setVisibility(View.GONE);
-
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
                 mProgressBar.setProgress(newProgress);//设置进度值
@@ -119,7 +138,7 @@ public class WebViewActivity extends AppCompatActivity implements View.OnClickLi
                         "document.documentElement.getElementsByClassName('footer')[0].style.display = 'none';\n" +
                         "document.documentElement.getElementsByClassName('body')[6].style.display = 'none';\n" +
                         "document.getElementById('e42964a')[0].style.display = 'none';\n" +
-                        "document.documentElement.getElementsByClassName('d-titletab')[0].style.display = 'none';"  ,new ValueCallback<String>() {
+                        "document.documentElement.getElementsByClassName('d-titletab')[0].style.display = 'none';", new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String s) {
 

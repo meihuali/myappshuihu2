@@ -6,11 +6,11 @@ import android.os.Message;
 import android.util.Log;
 
 
+import com.example.xiao.myappshuihu.entity.ZDYData;
 import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
 import com.example.xiao.myappshuihu.httpsocket.SocketCallback;
 import com.example.xiao.myappshuihu.httpsocket.SocketConnect;
 import com.example.xiao.myappshuihu.httpsocket.SocketData;
-import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
 import com.example.xiao.myappshuihu.utils.MachineStateData;
 import com.example.xiao.myappshuihu.utils.Utils;
 
@@ -143,7 +143,7 @@ public class StateHandler extends Handler{
 		 */
 		else if(msg.what == 1002){
 			 isAction = true;
-			DBhelperManager.ZDYData data = (DBhelperManager.ZDYData)msg.obj;
+			ZDYData data = (ZDYData)msg.obj;
 	        tcpThread = new Thread(connect);
 	        tcpThread.start();
 	        StringBuffer stringBuffer = new StringBuffer();

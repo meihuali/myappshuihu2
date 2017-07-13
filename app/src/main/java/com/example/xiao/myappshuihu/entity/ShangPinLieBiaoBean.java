@@ -1,12 +1,13 @@
 package com.example.xiao.myappshuihu.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/20 0020.
  */
 
-public class ShangPinLieBiaoBean {
+public class ShangPinLieBiaoBean implements Serializable{
 
     /**
      * status : 1
@@ -32,7 +33,7 @@ public class ShangPinLieBiaoBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 17
          * img : 20170515/908be2ccf47f9e4de1b21b007188009a.jpg

@@ -498,6 +498,22 @@
    <string name="gouwujilu">购物记录</string>
    <string name="shouhuodizhi2">收货地址</string>
    <string name="sibaiyuan">400元</string>
+   <string name="goumaishangping">购买商品</string>
+   <string name="yangjiner">￥99</string>
+   <string name="shuliang">10000</string>
+   <string name="xuanzeyanse">选择颜色</string>
+   <string name="goumaishuliang">购买数量</string>
+   <string name="baise">白色</string>
+   <string name="zhifufangshi">支付方式</string>
+   <string name="weixinzhifu">微信支付</string>
+   <string name="yonghuming">用户名</string>
+   <string name="tianjiashouhuodizhi">收货地址</string>
+   <string name="tianjiaxindizhi">添加新地址</string>
+   <string name="xiangxidizhi">详细地址</string>
+   <string name="baocun">保存</string>
+   <string name="xuandiqu">选择地区</string>
+
+
 
 
 </resources>

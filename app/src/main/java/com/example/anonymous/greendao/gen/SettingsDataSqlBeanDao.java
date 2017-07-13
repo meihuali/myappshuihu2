@@ -22,13 +22,13 @@ public class SettingsDataSqlBeanDao extends AbstractDao<SettingsDataSqlBean, Lon
     /**
      * Properties of entity SettingsDataSqlBean.<br/>
      * Can be used for QueryBuilder and for referencing column names.
-    */
+     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Wendu = new Property(2, String.class, "wendu", false, "WENDU");
         public final static Property Status = new Property(3, boolean.class, "status", false, "STATUS");
-    };
+    }
 
 
     public SettingsDataSqlBeanDao(DaoConfig config) {
@@ -134,6 +134,11 @@ public class SettingsDataSqlBeanDao extends AbstractDao<SettingsDataSqlBean, Lon
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean hasKey(SettingsDataSqlBean entity) {
+        return entity.getId() != null;
     }
 
     @Override

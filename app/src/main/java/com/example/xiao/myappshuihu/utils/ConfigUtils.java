@@ -17,20 +17,20 @@ public class ConfigUtils {
 
     /*==================================================================================================*/
     /*主界面的右上角的那个popupwindow 里面的 历史记录接口*/
-   // http://api.sunsyi.com:8081/teapot/getorderlist/machineid/01020601411608666666/appid/d7e728b2-2257-4ddc-8e55-4d2b83de17f2/page/1/pagesize/10
+    // http://api.sunsyi.com:8081/teapot/getorderlist/machineid/01020601411608666666/appid/d7e728b2-2257-4ddc-8e55-4d2b83de17f2/page/1/pagesize/10
     public static final String LI_SHI_JI_LU = "http://api.sunsyi.com:8081/teapot/getactionloglist/machineid/01020601411608666666/appid/";
     //这个是后缀
     public static final String LI_SHI_JI_LU_HOUZHUI = "/page/1/pagesize/10";
 
     //==========水壶显示界面==========
-   // http://api.sunyie.com:8081/app/getnearmachine/appid/8610690389464250/onlineflag/all/bindflag/unbind
+    // http://api.sunyie.com:8081/app/getnearmachine/appid/8610690389464250/onlineflag/all/bindflag/unbind
     public static final String SHUIHUSHOU = "http://gkettle.sunyie.com/app/getnearmachine/appid/";
     public static final String SHUIHUHOUZHUI = "/onlineflag/all/bindflag/unbind";
 
 
     /*========================登录接口======================================*/
     public static final String ZhuYuMing = "http://store.sunyie.com/";
-    public static final String LOGIN_SONCESS = "Healthkettle/login.php";
+    public static final String LOGIN_SONCESS = "Login/loginnew.php";
     /*============================================================================*/
 
     /*=================================加入购物车的接口==================================================*/
@@ -43,7 +43,7 @@ public class ConfigUtils {
     public static final String REGSET_HOUZHUI = "/app/reg/appid/";
     /*===============================================================================*/
     /*===============================水壶开启预约 跟 闭关预约 开关 接口===========================================*/
-        public static final String OPEN_YUYUE = "/teapot/mswitch/machineid/";
+    public static final String OPEN_YUYUE = "/teapot/mswitch/machineid/";
     public static final String TYPES = "type";
 
     /*===============================修改水壶 预约的 ===================================================*/
@@ -53,4 +53,21 @@ public class ConfigUtils {
     /*=============================修改购物车 清单 接口==========================================================*/
     public static final String XIUGAIGOUWUCHEJIEKOU = "Afterlogin/changeshoppingcart.php";
 
+    /*
+* 扫码获取 料包的 属性
+* */
+    public static final String LIAOBAOSHUXING = "Teadetails/getTeaDetails.php";
+    /*
+    *  立即购买的接口
+    * */
+    public static final String LIJIGOUMAI = "Alipay/pay.php";
+    /*
+    * 用户注册按钮
+    * */
+    public static final String USER_RESETR = "Login/registrationnew.php";
+    public static final String DENGLUJIEKOU = "Login/loginnew.php";
+    /*
+    * 立即购买接口
+    * */
+    public static final String lijiegoumaijiegou = "http://store.sunyie.com/public/uploads/";
 }

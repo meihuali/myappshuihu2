@@ -6,9 +6,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.xiao.myappshuihu.R;
-import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
-import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoTwoBean;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.PicassoUtils;
 
@@ -36,6 +34,7 @@ public class AnimationAdapter extends BaseQuickAdapter<ShangPinLieBiaoBean.DataB
     protected void convert(BaseViewHolder helper, ShangPinLieBiaoBean.DataBean item) {
         //给item 上的子控件设置监听 然后在 主activity 里面调用 用adapter 掉setOnItemChildClickListener
         helper.addOnClickListener(R.id.imge_gouwuche);
+        helper.addOnClickListener(R.id.ll_layout_item);
         if (item != null) {
             //设置tatile
             helper.setText(R.id.tv_titales, item.getName());

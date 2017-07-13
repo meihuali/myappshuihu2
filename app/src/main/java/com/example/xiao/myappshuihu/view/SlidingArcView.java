@@ -12,14 +12,18 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.xiao.myappshuihu.R;
-import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
+import com.example.xiao.myappshuihu.entity.ZDYData;
+import com.example.xiao.myappshuihu.utils.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +34,21 @@ import java.util.List;
 
 public class SlidingArcView extends ViewGroup {
     public static String TAG = "QTView";
-//    private String titles[];
+    private Context context;
+    //    private String titles[];
 //    private int src[];
     private List<SignView> views = new ArrayList<>();
-    private List<DBhelperManager.ZDYData> mList = new ArrayList<>();
+    private List<ZDYData> mList = new ArrayList<>();
     //Bitmap bgBitmap;
 
     public SlidingArcView(Context context) {
         this(context, null);
+        this.context = context;
     }
 
     public SlidingArcView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         init();
     }
 
@@ -58,21 +65,46 @@ public class SlidingArcView extends ViewGroup {
         setMeasuredDimension(mSize, mSize);
     }
 
-    public void setData(List<DBhelperManager.ZDYData> mList) {
+    public void setData(List<ZDYData> mList) {
         this.mList = mList;
         for (int i = 0; i < mList.size(); i++) {
+            View v = LayoutInflater.from(context).inflate(R.layout.item, null, false);
+            ImageView img = (ImageView) v.findViewById(R.id.img);
+            if (mList.get(i).ZDY_IMAGE.contains(".jpg")) {
+                Glide.with(context).load(mList.get(i).ZDY_IMAGE).transform(new GlideCircleTransform(context)).into(img);
+            } else {
+                img.setImageResource(Integer.parseInt(mList.get(i).ZDY_IMAGE));
+            }
+
+            TextView text = (TextView) v.findViewById(R.id.text);
+            text.setText(mList.get(i).ZDY_NAME);
+            text.setGravity(Gravity.CENTER);
+            SignView signView = new SignView(v, i);
+            views.add(signView);
+            v.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+            this.addView(v);
 //            View v = new View(getContext());
-            TextView v = new TextView(getContext());
+           /* View view = new View(context);
+
+            TextView v = new TextView(context);
             v.setGravity(Gravity.CENTER);
             v.setWidth(250);
             v.setHeight(250);
             v.setTextColor(getResources().getColor(R.color.white));
-            v.setCompoundDrawablesWithIntrinsicBounds(0, Integer.parseInt(mList.get(i).ZDY_IMAGE), 0, 0);
+            //就是这里要怎么设置  。jpg 图片 如果是点击保存的话·
+            // 下面这句话是直接获取dawable 如果是 扫描二维码就是服务器返回的url 图片路径 就是这个地方了
+            // 该怎么设置了
+            if (mList.get(i).ZDY_IMAGE.contains(".jpg")) {
+
+            } else {
+                v.setCompoundDrawablesWithIntrinsicBounds(0, Integer.parseInt(mList.get(i).ZDY_IMAGE), 0, 0);
+            }
             v.setText(mList.get(i).ZDY_NAME);
             SignView signView = new SignView(v, i);
             views.add(signView);
-            this.addView(v);
+            this.addView(v);*/
         }
+        this.invalidate();
     }
 
     private void init() {

@@ -1,6 +1,7 @@
 package com.example.xiao.myappshuihu.fragmengt;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.xiao.myappshuihu.R;
@@ -19,9 +21,11 @@ import com.example.xiao.myappshuihu.entity.FenLeiLieBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangChenLiBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoBean;
 import com.example.xiao.myappshuihu.entity.ShangPinLieBiaoTwoBean;
+import com.example.xiao.myappshuihu.ui.WebViewActivity;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.GliderImagsLoader;
 import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.ToastUtil;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.google.gson.Gson;
 import com.kymjs.rxvolley.RxVolley;
@@ -67,7 +71,7 @@ public class FenLei extends Fragment implements OnBannerListener{
         initDataShoping();
         return view;
     }
-        /*商品列表请求接口*/
+    /*商品列表请求接口*/
     private void initDataShoping() {
         new RxVolley.Builder().callback(new HttpCallback() {
             @Override
@@ -108,11 +112,6 @@ public class FenLei extends Fragment implements OnBannerListener{
 
     /*设置图片轮播的数据*/
     private void initData(View view) {
-//        /*获取本地 封装的 url路径的 图片地址*/
-//        String[] urls =  getResources().getStringArray(R.array.jiashujuImages);
-//        List list = Arrays.asList(urls);
-//        List<?> images=new ArrayList<>();
-//        images.addAll(list);
         String lujin = "Healthkettle/image.php/type/2";
         String url = ConfigUtils.CONFIG+lujin;
         new RxVolley.Builder().callback(new HttpCallback() {
@@ -176,15 +175,6 @@ public class FenLei extends Fragment implements OnBannerListener{
     }
 
     private void initAdapter(View view) {
-//        for (int i = 0; i < 30; i++) {
-//            ShangChenLiBiaoBean slbb = new ShangChenLiBiaoBean();
-//            slbb.setAddress("广州");
-//            slbb.setMoney("159");
-//            slbb.setFukuanrenshu("4.3万人付款");
-//            slbb.setTitale("资金水壶");
-//            slbb.setFreeshipping("包邮");
-//            list.add(slbb);
-//        }
         //设置适配器
         mAnimationAdapter = new AnimationAdapter(R.layout.shangchengliebiao_item,shpoinglist,getActivity());
         mRecyclerView.setAdapter(mAnimationAdapter);
@@ -199,8 +189,30 @@ public class FenLei extends Fragment implements OnBannerListener{
                         ShangPinLieBiaoBean.DataBean splbtb =  shpoinglist.get(position);
                         PopupWindowUtils pwu = new PopupWindowUtils(getActivity(),splbtb);
                         pwu.showPopupWindow();
+                        break;
+                    //点击总Item
+                    case R.id.ll_layout_item:
+                        try {
+                              /*跳转到详细网页*/
+                            ShangPinLieBiaoBean.DataBean splb1 =  shpoinglist.get(position);
+                            //获取商品 淘宝的连接地址
+                            String weburl = splb1.getUrl();
+                            //获取该商品的图片
+                            String shangpingIMG = splb1.getImg();
+                            Intent intent = new Intent(getActivity(),WebViewActivity.class);
+                            //回去当前被点击的对象的金额
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("shangpingduixiang",splb1);
+                            intent.putExtras(bundle);
+                            intent.putExtra("weburl",weburl);
+                            intent.putExtra("shangpingIMG", shangpingIMG);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            ToastUtil.Short(getActivity(),"对象为空");
+                        }
 
-                    break;
+                        break;
+
                 }
             }
         });
@@ -219,7 +231,7 @@ public class FenLei extends Fragment implements OnBannerListener{
     public void onStart() {
         super.onStart();
         //开始轮播
-       banner.start();
+        banner.start();
 
     }
 

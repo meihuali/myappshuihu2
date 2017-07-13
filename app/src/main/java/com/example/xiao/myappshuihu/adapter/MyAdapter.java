@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.anonymous.greendao.gen.SettingsDataSqlBeanDao;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.entity.SettingsBean;
 import com.example.xiao.myappshuihu.entity.SettingsDataSqlBean;

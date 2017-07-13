@@ -139,24 +139,13 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        //通过监听器关联Activity和Adapter的关系，解耦；
-//        View.OnClickListener listener = shoppingsAdapter.getAdapterListener();
-//        if (listener != null) {
-//            //结算时，一般是需要将数据传给订单界面的
-//            btnSettle.setOnClickListener(shoppingsAdapter.getAdapterListener());
-//        }
         mRecyclerView.setAdapter(shoppingsAdapter);
 
 //        这一句是开启 item 动画
         shoppingsAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         //这句话·是绑定 recycleView 可以初始化 任何控件
         shoppingsAdapter.bindToRecyclerView(mRecyclerView);
-/*======================下面这两句是从本地sqlite 数据库中去取出数据源===================================================================*/
-  /*      //从数据库取数据
-        litss = MyGreenDaoUtils.getqueryUserList(getApplicationContext());
-        //添加到集合中
-        list.addAll(litss);*/
-  /*===========================================================================================*/
+
         //从服务器请求 数据源
         requsetHttpAskingshoppingcart();
 
@@ -165,18 +154,6 @@ public class ShoppingsActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-/*                    case R.id.image_colses:
-                        gwcb = list.get(position);
-                        list.remove(gwcb);
-                        //清楚集合后把 下面的总金额显示的 数据设为0
-//                        tv_moneyes.setText(0+"");
-                        shoppingsAdapter.notifyDataSetChanged();
-                        shoppingsAdapter.notifyItemChanged(position);
-//                       从数据库  删除点击的那个对象
-                  //      MyGreenDaoUtils.deleData(getApplicationContext(), gwcb);
-                        break;*/
-//                         /* 这个方法是用来在activity 中初始化 item上的 控件的 */
-//                        ivCheckGood = (ImageView) shoppingsAdapter.getViewByPosition(position, R.id.ivCheckGood);
                 }
             }
         });

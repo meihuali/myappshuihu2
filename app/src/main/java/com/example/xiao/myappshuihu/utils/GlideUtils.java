@@ -10,6 +10,7 @@ package com.example.xiao.myappshuihu.utils;
 
 import android.content.Context;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -41,6 +42,7 @@ public class GlideUtils {
     public static void loadImageView(Context mContext, String path, ImageView mImageView) {
         Glide.with(mContext).load(path).into(mImageView);
     }
+
 
     //加载指定大小
     public static void loadImageViewSize(Context mContext, String path, int width, int height, ImageView mImageView) {

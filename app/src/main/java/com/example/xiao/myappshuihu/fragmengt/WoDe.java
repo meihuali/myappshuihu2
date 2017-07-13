@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.xiao.myappshuihu.R;
+import com.example.xiao.myappshuihu.ui.LoginActivity;
 import com.example.xiao.myappshuihu.ui.PersonalInformationActivity;
+import com.example.xiao.myappshuihu.ui.RegisterActivity;
 import com.example.xiao.myappshuihu.ui.ShoppingsActivity;
-
+import com.example.xiao.myappshuihu.utils.ShareUtils;
+import com.example.xiao.myappshuihu.utils.ToastUtil;
+import com.gyf.barlibrary.ImmersionBar;
 
 
 /**
@@ -26,6 +31,7 @@ import com.example.xiao.myappshuihu.ui.ShoppingsActivity;
 public class WoDe extends Fragment implements View.OnClickListener {
     private TextView tv_shpoing;
     private TextView tv_geren;
+    private TextView tv_exit;
 
     @Nullable
     @Override
@@ -35,12 +41,15 @@ public class WoDe extends Fragment implements View.OnClickListener {
         return view;
 
     }
-        /* 初始化控件*/
+    /* 初始化控件*/
     private void initView(View view) {
         tv_geren = (TextView) view.findViewById(R.id.tv_geren);
         tv_geren.setOnClickListener(this);
         tv_shpoing = (TextView) view.findViewById(R.id.tv_shpoing);
         tv_shpoing.setOnClickListener(this);
+        tv_exit = (TextView)view.findViewById(R.id.tv_exit);
+        tv_exit.setOnClickListener(this);
+
     }
 
     @Override
@@ -56,9 +65,19 @@ public class WoDe extends Fragment implements View.OnClickListener {
 //                Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
 //                intent.putExtra("styls",styls);
 //                startActivity(intent);
-            break;
+                break;
+            //个人资料
             case R.id.tv_geren:
-                startActivity(new Intent(getActivity(), PersonalInformationActivity.class));
+                String zh = ShareUtils.getString(getActivity(),"zhanghao","");
+                if (!TextUtils.isEmpty(zh)) { //不等于空才跳转
+                    startActivity(new Intent(getActivity(), PersonalInformationActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
+                break;
+            case R.id.tv_exit:
+                ShareUtils.deleShare(getActivity(),"zhanghao");
+                ToastUtil.Short(getActivity(),"退出成功");
                 break;
         }
     }

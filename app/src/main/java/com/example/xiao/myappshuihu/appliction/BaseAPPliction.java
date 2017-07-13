@@ -3,6 +3,8 @@ package com.example.xiao.myappshuihu.appliction;
 import android.app.Activity;
 import android.app.Application;
 
+import com.example.anonymous.greendao.DBManager;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -25,6 +27,7 @@ public class BaseAPPliction extends Application {
         super.onCreate();
         mInstance = this;
         mInstance = this;
+        DBManager.getInstance();
     }
 
     public static BaseAPPliction getInstance() {

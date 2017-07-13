@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView(); //初始化
         setSelect(0); //默认选择第几个开场的tab栏 显示
-        initRequest(); //模拟登录
+//        initRequest(); //模拟登录
         /*这里是获取本机的 APPID */
         initGetAPPid();
     }
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String md5PassWord = MD5Util.getStringMD5("123456");
         String url = ConfigUtils.ZhuYuMing + ConfigUtils.LOGIN_SONCESS;
         HttpParams paresm = new HttpParams();
-        paresm.put("phone", "13144743445");
+        paresm.put("phone", "15625177596");
         paresm.put("password", md5PassWord);
         RxVolley.post(url, paresm, new HttpCallback() {
             @Override

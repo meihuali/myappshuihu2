@@ -17,11 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.example.anonymous.greendao.model.NZYDataModel;
 import com.example.xiao.myappshuihu.R;
+import com.example.xiao.myappshuihu.entity.NZYData;
 import com.example.xiao.myappshuihu.httpsocket.HttpConnectionUtils;
 import com.example.xiao.myappshuihu.httpsocket.HttpHandler;
 import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
-import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
 import com.example.xiao.myappshuihu.ui.NZEditActivity;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.L;
@@ -35,23 +36,24 @@ import com.kymjs.rxvolley.client.HttpCallback;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideView.OnSlideListener {
 
-	private NZ_DBhelperManager.NZYData bean;
+	private NZYData bean;
 	private String order_id;
 
 	public class Items extends MessageItem {
-		NZ_DBhelperManager.NZYData item;
+		NZYData item;
 	}
 	private List<Items> listData = new ArrayList<Items>();
 	private String MACHINEID;//这两个的添加只是为了在删除闹钟的时候，能够一起取消预约
 	private HttpHandler jrhandler;
 	private SlideView mLastSlideViewWithStatusOn;
 
-	private List<NZ_DBhelperManager.NZYData> mDataList;
+	private List<NZYData> mDataList;
 
 	private Activity context;
 
@@ -64,7 +66,7 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 		this.handler = handler;
 	}
 
-	public NzAdpter(Activity context, List<NZ_DBhelperManager.NZYData> dataList, HttpHandler jrhandler, String machineid) {
+	public NzAdpter(Activity context, List<NZYData> dataList, HttpHandler jrhandler, String machineid) {
 		mDataList = dataList;
 		this.jrhandler=jrhandler;
 		this.MACHINEID=machineid;
@@ -81,7 +83,7 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 
 	}
 	
-	public void addItemData(NZ_DBhelperManager.NZYData data){
+	public void addItemData(NZYData data){
 		mDataList.add(data);
 		Items itemts = new Items();
 		itemts.item = data;
@@ -150,7 +152,7 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 				@Override
 				public void onClick(View v) {
 					// 这里就是删除的点击事件回调啊！ 恩·
-					NZ_DBhelperManager.getInstance(context).delete(bean.NZ_ID);
+					NZYDataModel.getInstance().delete(bean.NZ_ID);
 					listData.remove(item);
 					notifyDataSetInvalidated();
 					//侧滑删除预约 条目
@@ -313,8 +315,8 @@ public class NzAdpter extends BaseAdapter implements OnItemClickListener,SlideVi
 			onClickIte=position;
 			Intent intent = new Intent(context,NZEditActivity.class);
 			Bundle bundle = new Bundle();
-			NZ_DBhelperManager.NZYData data  = mDataList.get(position);
-			bundle.putSerializable("data", data);
+			NZYData data  = mDataList.get(position);
+			bundle.putSerializable("data", (Serializable) data);
 			intent.putExtras(bundle);
 			//context.startActivity(intent);
 			((Activity)context).startActivityForResult(intent,1);//1stand for update

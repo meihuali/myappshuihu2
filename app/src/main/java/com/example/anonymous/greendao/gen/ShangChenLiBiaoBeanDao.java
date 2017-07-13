@@ -22,7 +22,7 @@ public class ShangChenLiBiaoBeanDao extends AbstractDao<ShangChenLiBiaoBean, Lon
     /**
      * Properties of entity ShangChenLiBiaoBean.<br/>
      * Can be used for QueryBuilder and for referencing column names.
-    */
+     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Titale = new Property(1, String.class, "titale", false, "TITALE");
@@ -36,7 +36,7 @@ public class ShangChenLiBiaoBeanDao extends AbstractDao<ShangChenLiBiaoBean, Lon
         public final static Property Price = new Property(9, String.class, "price", false, "PRICE");
         public final static Property Number = new Property(10, String.class, "number", false, "NUMBER");
         public final static Property PdtDesc = new Property(11, String.class, "pdtDesc", false, "PDT_DESC");
-    };
+    }
 
 
     public ShangChenLiBiaoBeanDao(DaoConfig config) {
@@ -230,6 +230,11 @@ public class ShangChenLiBiaoBeanDao extends AbstractDao<ShangChenLiBiaoBean, Lon
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean hasKey(ShangChenLiBiaoBean entity) {
+        return entity.getId() != null;
     }
 
     @Override

@@ -10,14 +10,15 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.anonymous.greendao.model.ZDYDataModel;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.dialog.EditDialog;
 import com.example.xiao.myappshuihu.dialog.ListDialog;
 import com.example.xiao.myappshuihu.dialog.PromptDialog;
 import com.example.xiao.myappshuihu.entity.Kettle;
 import com.example.xiao.myappshuihu.entity.Machine;
+import com.example.xiao.myappshuihu.entity.ZDYData;
 import com.example.xiao.myappshuihu.sqlite.DBNullException;
-import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.view.RotateDrawView;
@@ -53,7 +54,7 @@ public class ZiDingYiBianJiActivity extends Base2Activity implements View.OnClic
     /******
      * ‘ 添加或者修改自定义的数据
      * ******/
-    public DBhelperManager.ZDYData data = new DBhelperManager.ZDYData();
+    public ZDYData data = new ZDYData();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,43 +81,38 @@ public class ZiDingYiBianJiActivity extends Base2Activity implements View.OnClic
                     @Override
                     public void doComfirm(int flag) {
                         // TODO 自动生成的方法存根
-                        try {
-                            if(mciID==null){
+                        if(mciID==null){
 //                                data.MACHINE_ID=k.machineid;
-                                Toasts.makeTexts(getApplicationContext(),"设备号为空");
-                            }
-                            data.ZDY_ISDE = 0;
-                            // ========注释
-                            data.ZDY_SW = drawView.getTemp() + "°c";
-                            data.MACHINE_ID = mciID;
-//                            //这里保存·有没有？
-                            data.ZDY_IMAGE = String.valueOf(R.drawable.i5);
-                            data.ZDY_ISOPEN = 1;
-                            if (Switch2.isChecked()) {
-                                data.ZDY_TIME =getIntString(zdy_txt_layout_03.getText().toString()) ;
-                            } else {
-                                data.ZDY_TIME = "0";
-                            }
-                            if (Switch3.isChecked()) {
-                                data.ZDY_TIME1 =getIntString( zdy_txt_layout_04.getText().toString());
-
-                            } else {
-                                data.ZDY_TIME1 = "0";
-                            }
-                            if (data.ZDY_ID == null) {
-                                data.ZDY_ID = System.currentTimeMillis() + "";
-
-                                DBhelperManager.getInstance(ZiDingYiBianJiActivity.this).insert(data);
-
-                            } else {
-                                DBhelperManager.getInstance(ZiDingYiBianJiActivity.this)
-                                        .update(data);
-                            }
-
-                        } catch (DBNullException e) {
-                            // TODO 自动生成的 catch 块
-                            e.printStackTrace();
+                            Toasts.makeTexts(getApplicationContext(),"设备号为空");
                         }
+                        data.ZDY_ISDE = 0;
+                        // ========注释
+                        data.ZDY_SW = drawView.getTemp() + "°c";
+                        data.MACHINE_ID = mciID;
+//                            //这里保存·有没有？
+                        data.ZDY_IMAGE = String.valueOf(R.drawable.i5);
+                        data.ZDY_ISOPEN = 1;
+                        if (Switch2.isChecked()) {
+                            data.ZDY_TIME =getIntString(zdy_txt_layout_03.getText().toString()) ;
+                        } else {
+                            data.ZDY_TIME = "0";
+                        }
+                        if (Switch3.isChecked()) {
+                            data.ZDY_TIME1 =getIntString( zdy_txt_layout_04.getText().toString());
+
+                        } else {
+                            data.ZDY_TIME1 = "0";
+                        }
+                        if (data.ZDY_ID == null) {
+                            data.ZDY_ID = System.currentTimeMillis() + "";
+
+                            ZDYDataModel.getInstance().insert(data);
+
+                        } else {
+                            ZDYDataModel.getInstance()
+                                    .update(data);
+                        }
+
                         finish();
                     }
 
@@ -304,13 +300,13 @@ public class ZiDingYiBianJiActivity extends Base2Activity implements View.OnClic
     private void getIntentE() {
         Intent intent = getIntent();
         if (intent != null && intent.getExtras() != null) {
-            data = (DBhelperManager.ZDYData) intent.getSerializableExtra("data");
+            data = (ZDYData) intent.getSerializableExtra("data");
 //            k=(Kettle) intent.getSerializableExtra("machine");
 
 
 
             if(data==null){
-                data=new DBhelperManager.ZDYData();
+                data=new ZDYData();
             }
             zdy_txt_layout_02.setText(data.ZDY_NAME);
             if (data.ZDY_ISZF != null && !data.ZDY_ISZF.equals("0")) {

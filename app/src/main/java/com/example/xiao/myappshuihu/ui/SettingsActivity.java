@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,31 +18,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.anonymous.greendao.gen.SettingsDataSqlBeanDao;
-import com.example.anonymous.greendao.gen.SettingsDataSql_item1_BeanDao;
+import com.example.anonymous.greendao.model.NZYDataModel;
+import com.example.anonymous.greendao.model.ZDYDataModel;
 import com.example.xiao.myappshuihu.R;
-import com.example.xiao.myappshuihu.adapter.MyAdapter;
 import com.example.xiao.myappshuihu.adapter.ZdyAdpter;
 import com.example.xiao.myappshuihu.entity.Kettle;
-import com.example.xiao.myappshuihu.entity.SettingsBean;
-import com.example.xiao.myappshuihu.entity.SettingsDataSqlBean;
-import com.example.xiao.myappshuihu.entity.SettingsDataSql_item1_Bean;
-import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
-import com.example.xiao.myappshuihu.sqlite.MyGreenDaoUtils;
-import com.example.xiao.myappshuihu.sqlite.MyGreenDao_settings_Utils;
-import com.example.xiao.myappshuihu.sqlite.MyGreenDao_settings_item_1_Utils;
-import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
+import com.example.xiao.myappshuihu.entity.ZDYData;
 import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.StringUtil;
-import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.utils.WifiTools;
 import com.example.xiao.myappshuihu.view.ListViewCompat;
-import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.lankton.flowlayout.FlowLayout;
@@ -58,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private ZdyAdpter adpter;
     private Kettle data;
 
-    private List<DBhelperManager.ZDYData> mList;
+    private List<ZDYData> mList;
 
     private FlowLayout flowLayout;
     private Button btn_addconmit;
@@ -106,11 +95,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if (StringUtil.isEmpty(machineid)) {
             machineid = "machineid";
         }
-        mList = DBhelperManager.getInstance(this).getAlermList(1, machineid);
+        mList = ZDYDataModel.getInstance().getAlermList(1, machineid);
         if (mList.size() <= 0) {
-            DBhelperManager.getInstance(this).addDefault(machineid);
-            mList = DBhelperManager.getInstance(this).getAlermList(1, machineid);
-            NZ_DBhelperManager.getInstance(this).addDefault(mList, machineid);
+            ZDYDataModel.getInstance().addDefault(machineid);
+            mList = ZDYDataModel.getInstance().getAlermList(1, machineid);
+            NZYDataModel.getInstance().addDefault(mList, machineid);
         }
 
         /*
@@ -129,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private void initTitle() {
         //这边的数据显示不出来了·
         flowLayout.removeAllViews();
-        List<DBhelperManager.ZDYData> mList = DBhelperManager.getInstance(this).getAlermList(1,machineid);
+        List<ZDYData> mList = ZDYDataModel.getInstance().getAlermList(1,machineid);
         int length = mList.size();
         for (int i = 0; i < mList.size(); i++) {
             addToFlow(mList.get(i).ZDY_NAME);

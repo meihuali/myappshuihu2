@@ -7,16 +7,18 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.example.anonymous.greendao.model.NZYDataModel;
+import com.example.anonymous.greendao.model.ZDYDataModel;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.adapter.NzAdpter;
 import com.example.xiao.myappshuihu.connerler.ConnHandler;
 import com.example.xiao.myappshuihu.dialog.PromptDialog;
+import com.example.xiao.myappshuihu.entity.NZYData;
+import com.example.xiao.myappshuihu.entity.ZDYData;
 import com.example.xiao.myappshuihu.httpsocket.HttpConnectionUtils;
 import com.example.xiao.myappshuihu.httpsocket.HttpHandler;
 import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
 import com.example.xiao.myappshuihu.json.JsonParser;
-import com.example.xiao.myappshuihu.sqlite.DBhelperManager;
-import com.example.xiao.myappshuihu.sqlite.NZ_DBhelperManager;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.MachineStateData;
@@ -48,7 +50,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
 
     private NzAdpter adpter;
 
-    private List<NZ_DBhelperManager.NZYData> mList;
+    private List<NZYData> mList;
 
     private String MACHINEID;
     private String APPid;
@@ -107,7 +109,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
     protected void onStart() {
         // TODO 自动生成的方法存根
         super.onStart();
-        mList = NZ_DBhelperManager.getInstance(this).getAlermList(MACHINEID);
+        mList =  NZYDataModel.getInstance().getAlermList(MACHINEID);
         Log.e("aa", "mList:------------" + mList.size());
         if (mList != null) {
             adpter = new NzAdpter(this, mList, jrhandler, MACHINEID);
@@ -118,14 +120,14 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
 
     }
 
-    NZ_DBhelperManager.NZYData data = null;
+    NZYData data = null;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 11) {
-                    data = (NZ_DBhelperManager.NZYData) msg.obj;
+                    data = (NZYData) msg.obj;
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_set_confirm), YuYueActivity.this, 100, false);
             } else if (msg.what == 12) {
-                    data = (NZ_DBhelperManager.NZYData) msg.obj;
+                    data = (NZYData) msg.obj;
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_delete_confirm), YuYueActivity.this, 101, false);
 
             }
@@ -158,7 +160,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                 showPromptDialog(YuYueActivity.this.getString(R.string.alarm_set_success));
                 data.NZ_ISOPEN = 1;
 
-                NZ_DBhelperManager.getInstance(YuYueActivity.this).update(data);
+                NZYDataModel.getInstance().update(data);
                 adpter.notifyDataSetChanged();
                 String NZ_ID = data.NZ_ID;
                 try {
@@ -167,7 +169,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                     String order_id = data1.getString("orderid");
                     // Toast.makeText(NzActivity.this, order_id, 1).show();
                     data.ORDER_ID = order_id;
-                    NZ_DBhelperManager.getInstance(YuYueActivity.this)
+                    NZYDataModel.getInstance()
                             .updateOrederId(order_id, NZ_ID);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -187,7 +189,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                 } else {
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_delete_success));
                     data.NZ_ISOPEN = 0;
-                    NZ_DBhelperManager.getInstance(YuYueActivity.this)
+                    NZYDataModel.getInstance()
                             .update(data);
                     adpter.notifyDataSetChanged();
                 }
@@ -210,7 +212,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                 } else {
                     Toasts.makeTexts(getApplicationContext(),"成功");
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_delete_success));
-                    NZ_DBhelperManager.getInstance(YuYueActivity.this)
+                    NZYDataModel.getInstance()
                             .delete(data);
                     adpter.notifyDataSetChanged();
                 }
@@ -232,7 +234,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                 } else {
                     showPromptDialog(YuYueActivity.this.getString(R.string.alarm_update_success));
                     data.NZ_ISOPEN = 0;
-                    NZ_DBhelperManager.getInstance(YuYueActivity.this)
+                    NZYDataModel.getInstance()
                             .update(data);
                     adpter.notifyDataSetChanged();
                 }
@@ -254,7 +256,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
                 }
 
             }
-            mList = NZ_DBhelperManager.getInstance(YuYueActivity.this)
+            mList =  NZYDataModel.getInstance()
                     .getAlermList(MACHINEID);
             adpter.notifyDataSetChanged();
         }
@@ -274,7 +276,7 @@ public class YuYueActivity extends Base2Activity implements PromptDialog.DialogL
             for (String tempString : timeStrings) {
                 resultString += tempString.length() == 1 ? "0" + tempString : tempString;
             }
-            DBhelperManager.ZDYData zdydata = DBhelperManager.getInstance(this).inquiry(
+            ZDYData zdydata = ZDYDataModel.getInstance().inquiry(
                     data.NZ_ZDYID);
             if (zdydata == null) {
                 showPromptDialog(YuYueActivity.this.getString(R.string.no_mode));

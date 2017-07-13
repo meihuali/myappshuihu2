@@ -22,6 +22,7 @@ import com.example.xiao.myappshuihu.ui.WebViewActivity;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.GliderImagsLoader;
 import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.ToastUtil;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.google.gson.Gson;
 import com.kymjs.rxvolley.RxVolley;
@@ -184,8 +185,6 @@ public class ZhuanTi extends Fragment implements OnBannerListener {
                 switch (view.getId()) {
                     /*子控件点击事件*/
                     case R.id.imge_gouwuche:
-
-
                         /*点击按钮 显示 popupWindow*/
                         ShangPinLieBiaoBean.DataBean sclbb = shpoinglist.get(position);
                         PopupWindowUtils pwu = new PopupWindowUtils(getActivity(),sclbb);
@@ -194,9 +193,28 @@ public class ZhuanTi extends Fragment implements OnBannerListener {
 
                     //点击总item 要做的事情
                     case R.id.ll_layout_item:
-                        /*跳转到详细网页*/
-                        startActivity(new Intent(getActivity(), WebViewActivity.class));
-                        Toast.makeText(getActivity(),"你点击了 "+position, Toast.LENGTH_SHORT).show();
+//                        /*跳转到详细网页*/
+//                        startActivity(new Intent(getActivity(), WebViewActivity.class));
+//                        Toast.makeText(getActivity(),"你点击了 "+position, Toast.LENGTH_SHORT).show();
+
+                        try {
+                              /*跳转到详细网页*/
+                            ShangPinLieBiaoBean.DataBean splb1 =  shpoinglist.get(position);
+                            //获取商品 淘宝的连接地址
+                            String weburl = splb1.getUrl();
+                            //获取该商品的图片
+                            String shangpingIMG = splb1.getImg();
+                            Intent intent = new Intent(getActivity(),WebViewActivity.class);
+                            //回去当前被点击的对象的金额
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("shangpingduixiang",splb1);
+                            intent.putExtras(bundle);
+                            intent.putExtra("weburl",weburl);
+                            intent.putExtra("shangpingIMG", shangpingIMG);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            ToastUtil.Short(getActivity(),"对象为空");
+                        }
                         break;
                 }
             }

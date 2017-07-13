@@ -15,6 +15,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * 描述：TODO
  */
 @Entity
+@SuppressWarnings("serial")
 public class ShangChenLiBiaoBean implements Serializable{
     @Id
     private Long id;

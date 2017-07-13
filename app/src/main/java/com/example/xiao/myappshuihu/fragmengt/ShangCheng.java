@@ -61,7 +61,7 @@ public class ShangCheng extends Fragment {
     /*初始化view控件等等···*/
     private void iniView(View view) {
         mTabLayout = (TabLayout) view.findViewById(R.id.mtablayout);
-        mviewpage = (ViewPager) view.findViewById(R.id.mViewPager);
+        mviewpage = (ViewPager) view.findViewById(R.id.viewPager);
         tv_tatletext = (ImageView) view.findViewById(R.id.tv_tatletext);
 //        //设置字体
 //        SetTexts.setFont(getActivity(),tv_tatletext);
