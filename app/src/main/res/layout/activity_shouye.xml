@@ -48,13 +48,15 @@
 
         </android.support.v4.view.ViewPager>
 
-        <com.example.xiao.myappshuihu.view.SlidingArcView
-            android:id="@+id/view"
+        <me.khrystal.library.widget.CircleRecyclerView
+            android:id="@+id/circle_rv"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="220dp"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+        </me.khrystal.library.widget.CircleRecyclerView>
 
-            />
+
     </RelativeLayout>
 
 

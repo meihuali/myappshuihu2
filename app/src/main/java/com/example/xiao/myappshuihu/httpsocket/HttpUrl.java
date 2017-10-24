@@ -72,7 +72,7 @@ public class HttpUrl {
 
     public static final String H_CORDER = URL + "/humidifier/cancelorder";
 
-    // 历史记录
+    // lishijilu_t_t
     public static final String H_STAT = URL + "/humidifier/stat";
 
     public static final String H_STAT_LIST = URL

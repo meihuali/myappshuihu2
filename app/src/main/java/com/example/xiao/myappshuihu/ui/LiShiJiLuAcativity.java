@@ -17,6 +17,7 @@ import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
 import com.google.gson.Gson;
+import com.gyf.barlibrary.ImmersionBar;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 
@@ -25,7 +26,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/16 0016.
- * 该界面用于呈现 历史记录
+ * 该界面用于呈现 lishijilu_t_t
  */
 
 public class LiShiJiLuAcativity extends AppCompatActivity implements View.OnClickListener {
@@ -39,6 +40,13 @@ public class LiShiJiLuAcativity extends AppCompatActivity implements View.OnClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lishijilu);
+        //沉浸式
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.fenhongse) //指定主题颜色 意思 是在这里可以修改 styles 里面的主题颜色
+                // .statusBarDarkFont(true,0.2f)    如果是白色或者透明状态的时候就加上他
+                .fitsSystemWindows(true) //解决状态栏和布局重叠问题，默认为false，当为true时一定要指定statusBarColor()，不然状态栏为透明色
+                .init();
+
         initViews();
         initData();
     }

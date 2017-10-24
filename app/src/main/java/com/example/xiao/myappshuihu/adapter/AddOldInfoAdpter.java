@@ -14,14 +14,8 @@ import android.widget.TextView;
 
 
 import com.example.xiao.myappshuihu.R;
-import com.example.xiao.myappshuihu.entity.ShuiHuLieBiao;
-import com.example.xiao.myappshuihu.httpsocket.HttpUrl;
-import com.example.xiao.myappshuihu.utils.StringUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.example.xiao.myappshuihu.ui.Caonima;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class AddOldInfoAdpter extends BaseAdapter implements OnItemClickListener {
@@ -73,7 +67,9 @@ public class AddOldInfoAdpter extends BaseAdapter implements OnItemClickListener
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
+		dataList.get(position);
+		Activity activity = (Activity) context;
+		activity.startActivity(new Intent(activity, Caonima.class));
 	}
 
 	public  class Holder {

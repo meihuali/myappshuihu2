@@ -178,6 +178,7 @@
     <string name="feedback_detail">详情</string>
     <string name="customer_service">客服</string>
     <string name="add_device">添加设备</string>
+    <string name="del_device">刪除设备</string>
     <string name="device_detail">设备详情</string>
     <string name="my_kettle">我的水壶</string>
     <string name="connecting">connecting</string>
@@ -222,7 +223,7 @@
     <string name="copyright">版权所有：广州星奕科技有限公司</string>
     <string name="add_new_device">添加新设备</string>
     <string name="add_old_device">添加已有设备</string>
-    <string name="add_hint">请确认电器已接上电源，并根据说明书指示常按wifi控制按键，直至wifi指示灯进入快速闪烁状态，再进行搜索。</string>
+    <string name="add_hint">1.请确认电器已接上电源 \n2.根据说明书指示常按wifi控制按键，直至wifi指示灯进入快速闪烁状态\n3.再进行搜索。</string>
     <string name="add_one_device">已收到一台设备</string>
     <string name="wifi_account">WIFI账号</string>
     <string name="wifi_password">WIFI密码</string>
@@ -512,8 +513,21 @@
    <string name="xiangxidizhi">详细地址</string>
    <string name="baocun">保存</string>
    <string name="xuandiqu">选择地区</string>
+    <string name="faxian">发现</string>
+    <string name="wodeqianbaos">养生壶列表</string>
+    <string name="zanwuyangshenghulianjie">暂无养生壶连接</string>
+    <string name="tianjianyangshenghu">添加养生壶</string>
+    <string name="tianjiashebei">添加设备</string>
+    <string name="sousuo">搜索</string>
+    <string name="dingshi">定时</string>
+    <string name="lishi">历史</string>
 
-
-
-
+    <string name="item_position">item_position</string>
+    <string name="mubiaowendu">目标温度</string>
+    <string name="wenduxiangqing">80`C</string>
+    <string name="jinghuashijian">净化时间</string>
+    <string name="baowenshijian">保温时间</string>
+    <string name="shangcijiarenshijian">上次加热时间</string>
+    <string name="tianjia">添加</string>
+    <string name="shebeixiangqing">详情</string>
 </resources>

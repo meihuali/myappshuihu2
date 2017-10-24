@@ -95,6 +95,7 @@ public class AddNewInfoAdpter extends BaseAdapter implements
 		return arg0;
 	}
 
+
 	public View getView(int index, View contentView, ViewGroup parent) {
 		//Holder holder  = null;
 		if (contentView == null) {
@@ -162,7 +163,6 @@ public class AddNewInfoAdpter extends BaseAdapter implements
 //		Activity activity = ((Activity) context); //强转
 		Intent intent = new Intent(context, MachineActivity.class);//运行看看
 		intent.putExtra("MACHINEID", machineid); //  用Intent 传值 必须在 另外一Activity 接受这个值才可以跳
-//		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
 		context.finish();
 	}

@@ -1,5 +1,6 @@
 package com.example.xiao.myappshuihu.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -265,7 +266,7 @@ public class Utils {
 	/**
 	 * 设置闹钟监听
 	 * @param context
-	 * @param timeInMillis
+	 * @param
 	 */
 	public static void setAlarmTime(Context context) {
 		Calendar calendar=Calendar.getInstance();
@@ -302,7 +303,7 @@ public class Utils {
 }
 	
 	public static boolean isWifi(Activity activity){
-		WifiManager wifiManager = (WifiManager) activity.getSystemService(Context.WIFI_SERVICE);  		
+		@SuppressLint("WifiManagerLeak") WifiManager wifiManager = (WifiManager) activity.getSystemService(Context.WIFI_SERVICE);
 		if (wifiManager.isWifiEnabled() == false)
 		{
 			return false;

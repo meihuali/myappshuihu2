@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+     <ImageView
+         android:scaleType="fitXY"
+         android:src="@drawable/zhujiemian_t"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:id="@+id/relativeLayout">
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/baisefanhuijiantou_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <android.support.v4.view.ViewPager
+            android:id="@+id/mViewPager"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp">
+        </android.support.v4.view.ViewPager>
+
+        <!--圆弧-->
+        <LinearLayout
+            android:id="@+id/ll_layoutqiehuan"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="290dp">
+
+            <!--这个是正面-->
+        <RelativeLayout
+            android:id="@+id/fl_layout_zhengmian"
+            android:background="@drawable/yuanhubeijing_a_t"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="290dp">
+
+            <me.khrystal.library.widget.CircleRecyclerView
+                android:id="@+id/circle_rv"
+                android:layout_width="match_parent"
+                android:layout_height="195dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true">
+            </me.khrystal.library.widget.CircleRecyclerView>
+            <LinearLayout
+                android:id="@+id/btn_kaiguan"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="90dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img_guan"
+                    android:src="@drawable/shaoshui_guan_t"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/img_kai"
+                    android:src="@drawable/shaoshui_kai_t"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+        <!--这里写背面-->
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/fl_layout_beimian"
+                android:background="@drawable/yuanhubeijing_b_t"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="290dp">
+                <RelativeLayout
+                    android:layout_marginTop="80dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/ll_layout_setttings"
+                        android:gravity="center"
+                        android:layout_marginLeft="60dp"
+                        android:orientation="vertical"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/setttings_t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/white"
+                            android:text="@string/settings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_layoutdingshi"
+                        android:layout_marginTop="40dp"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:layout_marginLeft="60dp"
+                        android:orientation="vertical"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/dingshi_t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/white"
+                            android:text="@string/dingshi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_layoutlishijilu"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/lishijilu_t_t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/white"
+                            android:text="@string/lishi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_marginTop="160dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_marginLeft="30dp"
+                        android:orientation="vertical"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/tianjia_t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/white"
+                            android:text="@string/tianjia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_layout_saoyisao"
+                        android:layout_marginTop="30dp"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:layout_marginLeft="60dp"
+                        android:orientation="vertical"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/saoyisao_t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:visibility="gone"
+                            android:textColor="@color/white"
+                            android:text="@string/dingshi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_layout_xiangqing"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/xiangqing_t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/white"
+                            android:text="@string/shebeixiangqing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

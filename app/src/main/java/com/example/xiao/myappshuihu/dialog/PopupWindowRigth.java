@@ -19,7 +19,9 @@ import com.example.xiao.myappshuihu.appliction.BaseAPPliction;
 import com.example.xiao.myappshuihu.saoyisao.ScannerActivity;
 import com.example.xiao.myappshuihu.ui.AddOldInfoActivity;
 
+import com.example.xiao.myappshuihu.ui.DelteMachineActivity;
 import com.example.xiao.myappshuihu.ui.LiShiJiLuAcativity;
+import com.example.xiao.myappshuihu.ui.MachineActivity;
 import com.example.xiao.myappshuihu.ui.SaoYiSaoActivity;
 import com.example.xiao.myappshuihu.ui.SettingsActivity;
 import com.example.xiao.myappshuihu.ui.YuYueActivity;
@@ -47,6 +49,7 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
         findViewById(R.id.tx_3).setOnClickListener(this);
         findViewById(R.id.tx_4).setOnClickListener(this);
         findViewById(R.id.tx_5).setOnClickListener(this);
+        findViewById(R.id.tx_6).setOnClickListener(this);
     }
 
     @Override
@@ -107,7 +110,7 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
 
                 break;
             case R.id.tx_4:
-                // 历史记录
+                // lishijilu_t_t
                 Toasts.makeTexts(getContext(), "click tx_4");
                 getContext().startActivity(new Intent(getContext(), LiShiJiLuAcativity.class));
                 PopupWindowRigth.this.dismiss();
@@ -117,6 +120,11 @@ public class PopupWindowRigth extends BasePopupWindow implements View.OnClickLis
                 Toasts.makeTexts(getContext(), "click tx_4");
                 getContext().startActivity(new Intent(getContext(), AddOldInfoActivity.class));
                 PopupWindowRigth.this.dismiss();
+                break;
+            case R.id.tx_6:
+                // 設備詳情
+                Intent intents = new Intent(getContext(), DelteMachineActivity.class);
+                getContext().startActivity(intents);
                 break;
         }
     }

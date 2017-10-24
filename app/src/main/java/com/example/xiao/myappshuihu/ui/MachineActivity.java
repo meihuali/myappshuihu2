@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.anonymous.greendao.model.ZDYDataModel;
 import com.example.xiao.myappshuihu.MainActivity;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.httpsocket.HttpConnectionUtils;
@@ -25,6 +26,7 @@ import com.example.xiao.myappshuihu.sqlite.DBNullException;
 import com.example.xiao.myappshuihu.sqlite.Machinenu_DBhelperManager;
 import com.example.xiao.myappshuihu.utils.GlideUtils;
 import com.example.xiao.myappshuihu.utils.L;
+import com.example.xiao.myappshuihu.utils.ShareUtils;
 import com.example.xiao.myappshuihu.utils.StringUtil;
 import com.example.xiao.myappshuihu.utils.Toasts;
 import com.example.xiao.myappshuihu.utils.ToolsGetAppId;
@@ -42,10 +44,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 主界面
- * 
+ * 這裡是添加設備界面
+ *
  * @author Administrator
- * 
+ *
  */
 public class MachineActivity extends Base2Activity implements OnClickListener {
 
@@ -62,38 +64,20 @@ public class MachineActivity extends Base2Activity implements OnClickListener {
 		setContentView(R.layout.activity_machine);
 
 		machineid = getIntent().getStringExtra("MACHINEID");
-		// ImageLoader.getInstance().displayImage(HttpUrl.IMGURL+imageframe+".png",
-		// sbimage);
-//以前要求04不能添加，后来改了
-//		if(MACHINEID.startsWith("04")){
-//			connBt.setVisibility(View.GONE);
-//		}
+
+
 	}
 
 	@Override
 	public void setActionBar() {
 		setActivityTitle(this.getString(R.string.device_detail));
-	/*	if(isDele){
-			setRight(this.getString(R.string.save), new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					addDBData(0);
-//					MainActivity.iswifi = true;
-					Intent intent = new Intent(MachineActivity.this, MainActivity.class);
-					intent.putExtra("updata", true);
-					startActivity(intent);
-					finish();
-				}
-			});
-		}*/
+
 	}
 
 	@Override
 	public void findView() {
 		options = new DisplayImageOptions.Builder()
-				// .showImageOnLoading(R.drawable.shhs)
-				// .showImageForEmptyUri(R.drawable.shhs)
-				// .showImageOnFail(R.drawable.shhs)
+
 				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
 				.displayer(new RoundedBitmapDisplayer(20)).build();
 
@@ -165,16 +149,6 @@ public class MachineActivity extends Base2Activity implements OnClickListener {
 		// TODO 自动生成的方法存根
 		if (v.getId() == R.id.wifi_conn_bt) {
 			if (!isDele) {
-//				if (!ConnHandler.isConn) {
-//					addDBData(0);
-//					MainActivity.iswifi = true;
-//					Intent intent = new Intent(MachineActivity.this,
-//							MainActivity.class);
-//					intent.putExtra("iswifi", false);
-//					startActivity(intent);
-//					finish();
-//					return;
-//				}
 				List<NameValuePair> data = new ArrayList<NameValuePair>();
 				data.add(new BasicNameValuePair("appid", ToolsGetAppId.getinitAppId(this)));
 				data.add(new BasicNameValuePair("machineid", MACHINEID));
@@ -182,16 +156,6 @@ public class MachineActivity extends Base2Activity implements OnClickListener {
 				httpUtil.create(1, HttpUrl.BIND, data);
 				httpUtil.setState(100);
 			} else {
-//				if (!ConnHandler.isConn) {
-//					addDBData(1);
-//					MainActivity.iswifi = true;
-//					Intent intent = new Intent(MachineActivity.this,
-//							MainActivity.class);
-//					intent.putExtra("iswifi", false);
-//					startActivity(intent);
-//					finish();
-//					return;
-//				}
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("appid", HttpUrl.APP_ID);
 				map.put("machineid", MACHINEID);
@@ -200,16 +164,12 @@ public class MachineActivity extends Base2Activity implements OnClickListener {
 				httpUtil.setState(101);
 			}
 		}
-/*		if (v.getId() == R.id.group_bt) {
-			Intent i=new Intent(MachineActivity.this, LampGroupActivity.class);
-			i.putExtra("machineid",MACHINEID);
-			startActivity(i);
-		}*/
+
 	}
 
 	/**
 	 * 更改或者添加设备信息
-	 * 
+	 *
 	 * @param state
 	 */
 	private void addDBData(int state) {
@@ -249,33 +209,21 @@ public class MachineActivity extends Base2Activity implements OnClickListener {
 		protected void succeed(String jObject, int state) {
 			super.succeed(jObject, state);
 			L.e("ddddddd  绑定" +jObject.toString());
-			// =======测试
-			// String devs = MACHINEID.substring(0, 2);
-			// if (devs.equals("01")) {
-			// Intent intent = new
-			// Intent(MachineActivity.this,kettleActivity.class);
-			// intent.putExtra("MACHINEID", MACHINEID);
-			// startActivity(intent);
-			// }else{
-			// Intent intent = new
-			// Intent(MachineActivity.this,HumActivity.class);
-			// intent.putExtra("MACHINEID", MACHINEID);
-			// startActivity(intent);
-			// }
-			// finish();
-			// ============
+
 
 			// ========正式
 			if (state == 100) {
 				addDBData(0);
 				Toast.makeText(MachineActivity.this, MachineActivity.this.getString(R.string.add_device_success), Toast.LENGTH_LONG)
 						.show();
+				addSqliteDb();
+
 			} else {
 				addDBData(1);
 				Toast.makeText(MachineActivity.this, MachineActivity.this.getString(R.string.delete_device_success), Toast.LENGTH_LONG)
 						.show();
 			}
-			
+
 			isEdited=true;
 			// setResult(2);
 			// finish();
@@ -293,6 +241,17 @@ public class MachineActivity extends Base2Activity implements OnClickListener {
 					.show();
 		}
 	};
+
+
+	/*
+* 往数据库里面添加数据· 弱水三千
+*
+* */
+	private void addSqliteDb() {
+		ZDYDataModel.getInstance().addDefault(MACHINEID);
+//        mList = ZDYDataModel.getInstance().getAlermList(1, machineid);
+//        NZYDataModel.getInstance().addDefault(mList, machineid);
+	}
 
 	public static String getSsid(Context context) {
 		WifiManager wifiManager = (WifiManager) context

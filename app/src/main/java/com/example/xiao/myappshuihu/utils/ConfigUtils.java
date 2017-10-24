@@ -5,6 +5,9 @@ package com.example.xiao.myappshuihu.utils;
  */
 
 public class ConfigUtils {
+    //水壶主域名
+    public static final String SHUIHUZHUYUMING = "http://gkettle.sunyie.com";
+
     /*接口总地址·这里是域名·也可以是IP*/
     public static final String CONFIG = "http://store.sunyie.com/";
     /*轮播图拼接的 前缀*/
@@ -70,4 +73,9 @@ public class ConfigUtils {
     * 立即购买接口
     * */
     public static final String lijiegoumaijiegou = "http://store.sunyie.com/public/uploads/";
+
+    /*
+    * 刪除設備的接口
+    * */
+    public static final String DETELMICID = "";
 }

@@ -46,8 +46,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+
+
+
+
     //Tablayout
     compile 'com.android.support:design:25.0.0'
     //图片自动轮播 banner
@@ -96,4 +100,10 @@ dependencies {
     compile 'com.github.limxing:Android-PromptDialog:1.1.1'
     //支付宝SDK 架包
     compile files('libs/alipaySingle-20170510.jar')
+    //recycleView  主界面 fragment 圆弧滚动
+    compile project(':library')
+    //6.0 动态权限裤
+    compile 'com.yanzhenjie:permission:1.1.0'
+    //弹窗dialog 地址https://github.com/hss01248/DialogUtil
+    compile 'com.github.hss01248:DialogUtil:1.1.6'
 }

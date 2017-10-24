@@ -22,8 +22,8 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
         NZYDataDao.createTable(db, ifNotExists);
-        SettingsDataSqlBeanDao.createTable(db, ifNotExists);
         SettingsDataSql_item1_BeanDao.createTable(db, ifNotExists);
+        SettingsDataSqlBeanDao.createTable(db, ifNotExists);
         ShangChenLiBiaoBeanDao.createTable(db, ifNotExists);
         ZDYDataDao.createTable(db, ifNotExists);
     }
@@ -31,8 +31,8 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         NZYDataDao.dropTable(db, ifExists);
-        SettingsDataSqlBeanDao.dropTable(db, ifExists);
         SettingsDataSql_item1_BeanDao.dropTable(db, ifExists);
+        SettingsDataSqlBeanDao.dropTable(db, ifExists);
         ShangChenLiBiaoBeanDao.dropTable(db, ifExists);
         ZDYDataDao.dropTable(db, ifExists);
     }
@@ -54,8 +54,8 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(NZYDataDao.class);
-        registerDaoClass(SettingsDataSqlBeanDao.class);
         registerDaoClass(SettingsDataSql_item1_BeanDao.class);
+        registerDaoClass(SettingsDataSqlBeanDao.class);
         registerDaoClass(ShangChenLiBiaoBeanDao.class);
         registerDaoClass(ZDYDataDao.class);
     }

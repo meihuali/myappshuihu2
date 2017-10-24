@@ -30,6 +30,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/15 0015.
+ *
  */
 
 public class SlidingArcView extends ViewGroup {
@@ -64,9 +65,14 @@ public class SlidingArcView extends ViewGroup {
         mSize = Math.min(getMeasuredWidth(), getMeasuredHeight());
         setMeasuredDimension(mSize, mSize);
     }
-
+    private List<View> view = new ArrayList<>();
     public void setData(List<ZDYData> mList) {
         this.mList = mList;
+      /*  views.clear();
+        for(View v:view){
+            this.removeView(v);
+            this.invalidate();
+        }*/
         for (int i = 0; i < mList.size(); i++) {
             View v = LayoutInflater.from(context).inflate(R.layout.item, null, false);
             ImageView img = (ImageView) v.findViewById(R.id.img);
@@ -82,6 +88,8 @@ public class SlidingArcView extends ViewGroup {
             SignView signView = new SignView(v, i);
             views.add(signView);
             v.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+            view.clear();
+            view.add(v);
             this.addView(v);
 //            View v = new View(getContext());
            /* View view = new View(context);

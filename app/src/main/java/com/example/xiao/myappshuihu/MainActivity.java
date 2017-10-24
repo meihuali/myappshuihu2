@@ -1,5 +1,6 @@
 package com.example.xiao.myappshuihu;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +19,7 @@ import com.example.xiao.myappshuihu.entity.LoginBean;
 import com.example.xiao.myappshuihu.fragmengt.ShangCheng;
 import com.example.xiao.myappshuihu.fragmengt.ShouYe;
 import com.example.xiao.myappshuihu.fragmengt.WoDe;
+import com.example.xiao.myappshuihu.ui.YangshenghuliebiaoActivity;
 import com.example.xiao.myappshuihu.utils.ConfigUtils;
 import com.example.xiao.myappshuihu.utils.L;
 import com.example.xiao.myappshuihu.utils.MD5Util;
@@ -38,15 +40,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /*声明三个tab栏的 linelayout*/
     private LinearLayout llay_00, llay_01, llay_02;
     /*声明Fragmengt*/
-    private Fragment mtab0, mtab01, mtab02;
+    private Fragment mtab0, mtab01, mtab02,mtab03;
     /*声明tab栏下面的每一个textview*/
-    private TextView tv_00, tv_01, tv_02;
+    private TextView tv_00, tv_01, tv_02,tv_03;
     /*声明tab栏下面的 每一张图片Image*/
-    private ImageView image_00, image_01, image_02;
+    private ImageView image_00, image_01, image_02,id_img03;
     /*声明 模拟登录 的那个 集合 */
     private List<LoginBean> list = new ArrayList<>();
     //缩放动画
     private Animation animation;
+    private ImageView img_dianji;
+    private LinearLayout llay_03;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ScreenUtils.initScreen(this); //这句是为了首页的那个fragmengt 的屏幕尺寸搞得什么飞机我也看不懂
         setContentView(R.layout.activity_main);
         initView(); //初始化
-        setSelect(0); //默认选择第几个开场的tab栏 显示
+        setSelect(1); //默认选择第几个开场的tab栏 显示
 //        initRequest(); //模拟登录
         /*这里是获取本机的 APPID */
         initGetAPPid();
@@ -128,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //同时把背景图片设置为亮的图片
                 image_00.setImageResource(R.drawable.shouyexuanzhong);
                 //设置textview字体颜色
-                tv_00.setTextColor(getResources().getColor(R.color.but_color1));
+                tv_00.setTextColor(getResources().getColor(R.color.fenhongse));
                 break;
             case 1:
                 if (mtab01 == null) {
@@ -138,8 +143,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ft.show(mtab01);
                 }
                 image_01.setImageResource(R.drawable.shangchengxuanzhong);
-                tv_01.setTextColor(getResources().getColor(R.color.but_color1));
+                tv_01.setTextColor(getResources().getColor(R.color.fenhongse));
                 break;
+
             case 2:
                 if (mtab02 == null) {
                     mtab02 = new WoDe();
@@ -148,7 +154,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ft.show(mtab02);
                 }
                 image_02.setImageResource(R.drawable.wodexuanzhong);
-                tv_02.setTextColor(getResources().getColor(R.color.but_color1));
+                tv_02.setTextColor(getResources().getColor(R.color.fenhongse));
+                break;
+            case 3:
+                if (mtab03 == null) {
+                    mtab03 = new WoDe();
+                    ft.add(R.id.id_content, mtab03);
+                } else {
+                    ft.show(mtab03);
+                }
+                id_img03.setImageResource(R.drawable.faxian_xuanzhong);
+                tv_03.setTextColor(getResources().getColor(R.color.fenhongse));
                 break;
         }
         ft.commit(); //最后提交一下 到管理器里面
@@ -168,24 +184,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ft.hide(mtab02);
             tv_02.setTextColor(getResources().getColor(R.color.txt_balck));
         }
+        if (mtab03 != null) {
+            ft.hide(mtab03);
+            tv_03.setTextColor(getResources().getColor(R.color.txt_balck));
+        }
     }
 
     /*初始化控件*/
     private void initView() {
+        img_dianji = (ImageView) findViewById(R.id.img_dianji);
+        img_dianji.setOnClickListener(this);
         llay_00 = (LinearLayout) findViewById(R.id.llay_00);
         llay_00.setOnClickListener(this);
         llay_01 = (LinearLayout) findViewById(R.id.llay_01);
         llay_01.setOnClickListener(this);
         llay_02 = (LinearLayout) findViewById(R.id.llay_02);
         llay_02.setOnClickListener(this);
+
+        llay_03 = (LinearLayout)findViewById(R.id.llay_03);
+        llay_03.setOnClickListener(this);
+
         /*================textview==================*/
         tv_00 = (TextView) findViewById(R.id.tv_00);
         tv_01 = (TextView) findViewById(R.id.tv_01);
         tv_02 = (TextView) findViewById(R.id.tv_02);
+        tv_03 = (TextView) findViewById(R.id.tv_03);
         /*================imaggview===========================*/
         image_00 = (ImageView) findViewById(R.id.id_img00);
         image_01 = (ImageView) findViewById(R.id.id_img01);
         image_02 = (ImageView) findViewById(R.id.id_img02);
+        id_img03 = (ImageView) findViewById(R.id.id_img03);
     }
 
     @Override   /*点击 下面teab栏的时候 事件*/
@@ -195,16 +223,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.llay_00:
                 setSelect(0);
-                llay_00.startAnimation(animation);
+              //  llay_00.startAnimation(animation);
                 break;
             case R.id.llay_01:
                 setSelect(1);
-                llay_01.startAnimation(animation);
+              //  llay_01.startAnimation(animation);
                 break;
             case R.id.llay_02:
                 setSelect(2);
-                llay_02.startAnimation(animation);
+             //   llay_02.startAnimation(animation);
                 break;
+            case R.id.llay_03:
+                setSelect(3);
+                //   llay_03.startAnimation(animation);
+                break;
+
+                case R.id.img_dianji:
+                      startActivity(new Intent(getApplicationContext(),YangshenghuliebiaoActivity.class));
+                    break;
         }
     }
 
@@ -213,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         image_00.setImageResource(R.drawable.shouyeweixuanzhong);
         image_01.setImageResource(R.drawable.shanchengweixuanzhong);
         image_02.setImageResource(R.drawable.wodeweixuanzhong);
+        id_img03.setImageResource(R.drawable.faxian_weixuanzhong);
     }
 
     /*====================这里是那个养生壶硬件那块需要接受 一个什么几把 APPid 才可以===============================================*/

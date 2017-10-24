@@ -1,5 +1,6 @@
 package com.example.xiao.myappshuihu.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import com.example.anonymous.greendao.model.ZDYDataModel;
 import com.example.xiao.myappshuihu.R;
 import com.example.xiao.myappshuihu.entity.ZDYData;
 import com.example.xiao.myappshuihu.ui.ZiDingYiBianJiActivity;
+import com.example.xiao.myappshuihu.utils.ToastUtil;
 import com.example.xiao.myappshuihu.view.MessageItem;
 import com.example.xiao.myappshuihu.view.SlideView;
 
@@ -28,14 +30,16 @@ import java.util.List;
 
 public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideView.OnSlideListener {
 
+	private Activity activity;
+
 	public class Items extends MessageItem {
 		ZDYData item;
 	}
 	private List<Items> listData = new ArrayList<Items>();
-	
+
 	private SlideView mLastSlideViewWithStatusOn;
-	
-	
+
+
 	private List<ZDYData> mDataList;
 
 	private Context context;
@@ -57,7 +61,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 			listData.add(itemts);
 		}
 	}
-	
+
 	public void addItemData(ZDYData data){
 		mDataList.add(data);
 		Items itemts = new Items();
@@ -99,7 +103,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 		final ZDYHolder holder;
 		sview = (SlideView)contentView;
 		if (sview == null) {
-			
+
 			View view = LayoutInflater.from(context).inflate(
 					R.layout.zdy_layout_item, parent, false);
 			holder = new ZDYHolder(view);
@@ -121,7 +125,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 
 			if(bean.ZDY_ISDE == 0){
 				sview.setButtonOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						// TODO 自动生成的方法存根
@@ -135,9 +139,9 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 						}
 					}
 				});
-				
+
 				holder.img.setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						// TODO 自动生成的方法存根
@@ -183,7 +187,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 				holder.zdy_img_id.setVisibility(View.GONE);
 			}
 			holder.tx02.setText(bean.ZDY_SW);
-			
+
 			if(bean.ZDY_ISOPEN == 1){
 				holder.img.setBackgroundResource(R.drawable.r1);
 			}
@@ -223,14 +227,15 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 		}
 		final ZDYData bean = listData.get(position).item;
 		try {
-		Intent intent = new Intent(context,ZiDingYiBianJiActivity.class);
-		intent.putExtra("data", (Serializable) bean);
-		context.startActivity(intent);
+			 activity = (Activity) context;
+			Intent intent = new Intent(activity,ZiDingYiBianJiActivity.class);
+			intent.putExtra("data", (Serializable) bean);
+			activity.startActivity(intent);
 		} catch (Exception e) {
-		// TODO: handle exception
+			ToastUtil.Short(activity,"跳转出错");
 		}
 	}
-	
+
 	@Override
 	public void onSlide(View view, int status) {
 		// TODO 自动生成的方法存根
@@ -238,7 +243,7 @@ public class ZdyAdpter extends BaseAdapter implements OnItemClickListener,SlideV
 				&& mLastSlideViewWithStatusOn != view) {
 			mLastSlideViewWithStatusOn.shrink();
 		}
-		
+
 		if (status == SLIDE_STATUS_ON) {
 			mLastSlideViewWithStatusOn = (SlideView) view;
 		}
