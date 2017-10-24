@@ -3,9 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\studio_xiangmu_1\myappshuihu2\app\app.iml" filepath="D:\studio_xiangmu_1\myappshuihu2\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/flowlayout/flowlayout.iml" filepath="$PROJECT_DIR$/flowlayout/flowlayout.iml" />
+      <module fileurl="file://D:\studio_xiangmu_1\myappshuihu2\flowlayout\flowlayout.iml" filepath="D:\studio_xiangmu_1\myappshuihu2\flowlayout\flowlayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://D:\studio_xiangmu_1\myappshuihu2\library\library.iml" filepath="D:\studio_xiangmu_1\myappshuihu2\library\library.iml" />
       <module fileurl="file://$PROJECT_DIR$/myappshuihu2.iml" filepath="$PROJECT_DIR$/myappshuihu2.iml" />
+      <module fileurl="file://D:\studio_xiangmu_1\myappshuihu2\myappshuihu2.iml" filepath="D:\studio_xiangmu_1\myappshuihu2\myappshuihu2.iml" />
     </modules>
   </component>
 </project>

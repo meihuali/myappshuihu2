@@ -14,8 +14,8 @@
             android:theme="@style/AppThems"
             >
             <intent-filter>
-                <action android:name="android.intent.act
-                ion.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

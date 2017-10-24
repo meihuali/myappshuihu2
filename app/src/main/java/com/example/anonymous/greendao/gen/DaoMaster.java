@@ -21,19 +21,19 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
-        NZYDataDao.createTable(db, ifNotExists);
-        SettingsDataSql_item1_BeanDao.createTable(db, ifNotExists);
         SettingsDataSqlBeanDao.createTable(db, ifNotExists);
+        SettingsDataSql_item1_BeanDao.createTable(db, ifNotExists);
         ShangChenLiBiaoBeanDao.createTable(db, ifNotExists);
+        NZYDataDao.createTable(db, ifNotExists);
         ZDYDataDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        NZYDataDao.dropTable(db, ifExists);
-        SettingsDataSql_item1_BeanDao.dropTable(db, ifExists);
         SettingsDataSqlBeanDao.dropTable(db, ifExists);
+        SettingsDataSql_item1_BeanDao.dropTable(db, ifExists);
         ShangChenLiBiaoBeanDao.dropTable(db, ifExists);
+        NZYDataDao.dropTable(db, ifExists);
         ZDYDataDao.dropTable(db, ifExists);
     }
 
@@ -53,10 +53,10 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(NZYDataDao.class);
-        registerDaoClass(SettingsDataSql_item1_BeanDao.class);
         registerDaoClass(SettingsDataSqlBeanDao.class);
+        registerDaoClass(SettingsDataSql_item1_BeanDao.class);
         registerDaoClass(ShangChenLiBiaoBeanDao.class);
+        registerDaoClass(NZYDataDao.class);
         registerDaoClass(ZDYDataDao.class);
     }
 
